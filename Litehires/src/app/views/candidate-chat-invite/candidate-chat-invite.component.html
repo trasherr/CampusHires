@@ -1,0 +1,27 @@
+
+     <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center gap-5">
+        <button class="btn btn-primary btn-fab btn-icon btn-round" (click)="dialogRef.close()">
+          <fa-icon [icon]="faArrowAltCircleLeft"></fa-icon>
+        </button>
+        <h4 class="title">Initiate Chat with Candidate</h4>
+        <div class="actions">
+        </div>
+      </div>
+      <div [ngStyle]="{ display: (scheduling)? 'block' : 'none' }" >
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="sendEmail" (ngSubmit)="onSubmit()" novalidate>
+            <label>Subject</label>
+            <input class="form-control" placeholder="Subject" type="text" formControlName="subject"
+                    [(ngModel)]="emailData.subject" required />
+            <label>Message</label>
+            <textarea class="form-control" placeholder="Message" type="text" formControlName="message"
+                    [(ngModel)]="emailData.message" required ></textarea>
+
+            <button class = "btn btn-primary" [disabled]="scheduling" type="submit"><fa-icon [icon]="sendIcon"></fa-icon> Send</button>
+
+        </form>
+      </div>
+</div>

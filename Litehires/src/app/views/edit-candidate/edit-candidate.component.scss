@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  animation: custom-dialog-enter 1s ease;
+  z-index: 102;
+  border-radius: 15px;
+  overflow: scroll;
+}
+
+.card-body{
+  height: 60vh;
+  overflow-y: scroll;
+}

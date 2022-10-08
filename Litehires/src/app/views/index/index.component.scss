@@ -1,0 +1,88 @@
+.hero{
+  background: rgb(94, 112, 237);
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-container{
+  padding-inline: 15%;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.hero-container > .d-flex{
+  gap: 15px;
+}
+
+.login{
+  margin-inline-start: 10px;
+  background: rgb(236, 0, 80);
+}
+.signup{
+  background: rgb(101, 255, 25);
+  color: #111;
+}
+
+.signup:hover{
+  color: #fff;
+}
+
+.fill-white{
+  fill: #f5f6fa;
+}
+
+.hero-data > .section-text-info p{
+  font-weight: 300;
+  color: white;
+}
+.hero-data > .section-text-info h1{
+  color: white;
+}
+
+h1{
+  font-size: 25pt;
+  font-weight: 700;
+}
+
+p{
+  color: #111;
+}
+
+nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  padding-top: 30px;
+  padding-inline: 10%;
+}
+
+
+.section-text-info{
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+}
+
+.info-footer{
+  justify-content: center;
+  align-items: center;
+}
+
+footer{
+  margin-top: 100px;
+}
+
+
+
+.pricing{
+  text-decoration: none;
+  color: #fff;
+  font-size: large;
+}
+
+.links{
+  margin-right: 80px;
+  display: flex;
+  gap: 40px;
+}

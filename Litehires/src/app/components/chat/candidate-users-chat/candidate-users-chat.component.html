@@ -1,0 +1,120 @@
+<div *ngIf="!userId" class="chat">
+    <div id="chat-section">
+      <div *ngFor="let msg of chat">
+        <div *ngIf="msg.isStatus" class="message">
+          <div class="time-stamp d-flex mb-1 justify-content-center align-items-center">
+            <div class="log-date-time">{{ msg.createdAt | date: "medium" }}</div>
+          </div>
+          <div class="log">{{ msg.content }}</div>
+        </div>
+        <div *ngIf="msg.isMedia && msg.isCandidate" class="message">
+          <div class="me">
+            <div class="file" (click)="download(msg.content)">
+              {{ msg.content }}
+              <fa-icon [icon]="downloadFileIcon"></fa-icon>
+            </div>
+            <div class="date-time chat-box">
+              {{ msg.createdAt | date: "medium" }}
+            </div>
+          </div>
+        </div>
+        <div *ngIf="msg.isMedia && !msg.isCandidate" class="message">
+          <div class="other">
+            <div class="file" (click)="download(msg.content)">
+              {{ msg.content }}
+              <fa-icon [icon]="downloadFileIcon"></fa-icon>
+            </div>
+            <div class="date-time chat-box">
+              {{ msg.createdAt | date: "medium" }}
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!msg.isStatus && msg.isCandidate && !msg.isMedia" class="message">
+          <div class="me">
+            {{ msg.content }}
+            <div class="date-time chat-box">
+              {{ msg.createdAt | date: "medium" }}
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!msg.isStatus && !msg.isCandidate && !msg.isMedia" class="message d-flex flex-column">
+          <div class="other">
+            {{ msg.content }}
+            <div class="date-time chat-box">
+              {{ msg.createdAt | date: "medium" }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form (ngSubmit)="sendMessage(message.value)" class="chat-input" novalidate>
+      <input type="text" #message name="message-box" id="message-box" placeholder="Send Message" />
+      <fa-icon [icon]="attachIcon" (click)="uploadFile()" class="btn btn-link btn-icon btn-round attach-file-button"></fa-icon>
+      <button class="btn btn-primary btn-fab btn-icon btn-round">
+        <fa-icon [icon]="sendIcon"></fa-icon>
+      </button>
+    </form>
+  </div>
+
+  <div *ngIf="userId && room" class="chat">
+    <div id="chat-section">
+      <div *ngFor="let msg of chat">
+        <div *ngIf="msg.isStatus" class="message">
+          <div class="time-stamp d-flex mb-1 justify-content-center align-items-center">
+            <div class="log-date-time">{{ msg.createdAt | date: "medium" }}</div>
+          </div>
+          <div class="log">{{ msg.content }}</div>
+        </div>
+        <div *ngIf="msg.isMedia && msg.isCandidate" class="message">
+          <div class="me">
+            <div class="file" (click)="download(msg.content)">
+              {{ msg.content }}
+              <fa-icon [icon]="downloadFileIcon"></fa-icon>
+            </div>
+            <div class="date-time chat-box">
+              {{ msg.createdAt | date: "medium" }}
+            </div>
+          </div>
+        </div>
+        <div *ngIf="msg.isMedia && !msg.isCandidate" class="message">
+          <div class="other">
+            <div class="file" (click)="download(msg.content)">
+              {{ msg.content }}
+              <fa-icon [icon]="downloadFileIcon"></fa-icon>
+            </div>
+            <div class="date-time chat-box">
+              {{ msg.createdAt | date: "medium" }}
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!msg.isStatus && !msg.isCandidate && !msg.isMedia" class="message">
+          <div class="me">
+            {{ msg.content }}
+            <div class="date-time chat-box">
+              {{ msg.createdAt | date: "medium" }}
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!msg.isStatus && msg.isCandidate && !msg.isMedia" class="message d-flex flex-column">
+          <div class="other">
+            {{ msg.content }}
+            <div class="date-time chat-box">
+              {{ msg.createdAt | date: "medium" }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form (ngSubmit)="sendMessage(message.value)" class="chat-input" novalidate>
+      <input type="text" #message name="message-box" id="message-box" placeholder="Send Message" />
+      <fa-icon [icon]="attachIcon" (click)="uploadFile()" class="btn btn-link btn-icon btn-round attach-file-button"></fa-icon>
+
+      <button class="btn btn-primary btn-fab btn-icon btn-round ml-2">
+        <fa-icon [icon]="sendIcon"></fa-icon>
+      </button>
+    </form>
+  </div>
+
+  <div *ngIf="userId && !room" class="chat">
+      Send a mail to candidate to initiate chat
+  </div>

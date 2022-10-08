@@ -1,0 +1,115 @@
+.action-disable{
+  pointer-events:none;
+}
+
+.example-container {
+  width: 325px;
+  max-width: 100%;
+  margin: 0 10px 10px 0;
+  display: inline-block;
+  vertical-align: top;
+  min-height: 80%;
+}
+
+.example-list {
+  border: solid 1px #ccc;
+  // box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2),
+  // 0 4px 15px 1px rgba(0, 0, 0, 0.14),
+  // 0 1px 7px 1px rgba(0, 0, 0, 0.12);
+  min-height: 600px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  display: block;
+}
+
+.example-box {
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  margin: 5px;
+  border-radius: 10px;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.2),
+              0 2px 7px 1px rgba(0, 0, 0, 0.14),
+              0 0px 3px 1px rgba(0, 0, 0, 0.12);
+  transition: ease-in-out;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  cursor: move;
+  border-radius: 10px;
+  transform: rotateZ(5deg);
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  transition: ease-in-out;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-custom-placeholder {
+  background: #ccc;
+  border: dotted 3px #999;
+  min-height: 60px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.pipeline-card{
+  display: flex;
+  min-width: fit-content;
+}
+
+.pipe-card{
+  overflow-x: scroll;
+  margin-inline: 10px;
+  min-height: 80vh;
+}
+
+.phase-header{
+  align-items: center;
+}
+
+.example-container > h2{
+  margin-bottom: 5px;
+}
+
+.phase-length-indicator{
+  font-size: 8pt;
+  color: #555;
+  border-radius: 4px;
+  background-color: #ccc;
+  padding-inline: 8px;
+}
+
+body:not(.white-content){
+  .example-list{
+    background: linear-gradient(#222a42, #1d253b);;
+  }
+}
+
+
+.box-title{
+  font-size: x-large;
+  font-weight: 500;
+}

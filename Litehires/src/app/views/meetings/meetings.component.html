@@ -1,0 +1,53 @@
+<div class=" content">
+    <div class=" row">
+      <div class=" col-md-12">
+        <div class=" card ">
+          <div class=" card-header">
+            <h4 class=" card-title">Positions</h4>
+  
+            <!-- <button *ngIf="userType != 'admin'" [routerLink]="['/'+dashUrl+'/positions/newPosition']" class="btn btn-primary"> New Positions </button> -->
+          </div>
+          <div class=" card-body">
+            <div class=" table-responsive">
+              <table class=" table tablesorter" id="">
+                <thead class=" text-primary">
+                  <tr>
+                    <th></th>
+                    <th  class=" text-center">Name</th>
+                    <th  class=" text-center" >Initiated By</th>
+                    <th  class=" text-center" >Type</th>
+                    <th  class=" text-center">Start Time</th>
+                    <th class=" text-center" >Created Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Positions -->
+                  <ng-template ngFor let-meeting [ngForOf]="meetings" let-i="index" >
+                    <tr *ngIf="meeting.type == 'ONLINE'" [routerLink]="['/'+dashUrl+'/meetings',meeting.room]" class="card-box bg-secondary" style = "cursor: pointer;">
+                      <td>{{ i+1 }}</td>
+                      <td>{{ meeting.name }}</td>
+                      <td><span class="badge bg-info text-center">{{ meeting.user.first_name }}&ensp;{{ meeting.user.last_name }}</span></td>
+                      <td><span class="badge bg-danger text-center">Online</span></td>
+                      <td class=" text-center">{{ meeting.start | date:'medium' }}</td>
+                      <td class=" text-center">{{ meeting.createdAt | date }}</td>
+                    </tr>
+                    <tr *ngIf="meeting.type != 'ONLINE'" class="card-box" >
+                      <td>{{ i+1 }}</td>
+                      <td>{{ meeting.name }}</td>
+                      <td><span class="badge bg-info text-center">{{ meeting.user.first_name }}&ensp;{{ meeting.user.last_name }}</span></td>
+                      <td><span class="badge bg-danger text-center">{{ meeting.type }}</span></td>
+                      <td class=" text-center">{{ meeting.start | date:'medium' }}</td>
+                      <td class=" text-center">{{ meeting.createdAt | date }}</td>
+                    </tr>
+                    
+                  </ng-template>
+                  <!-- end Positions -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,296 @@
+<div class=" content">
+    <div class=" row">
+      <div class=" col-md-12">
+
+        <div class=" card">
+            <div class=" card-header"><h4 class=" title">New Position</h4></div>
+            <div class="card-body">
+              <!-- <app-upload-img (imgData)="setDP($event)"></app-upload-img> -->
+
+            <form [formGroup]="newPosition" (ngSubmit)="onSubmit()"  novalidate>
+            <div class=" card-body">
+                <div class=" row">
+                  <div class=" col-md-6 pr-md-1">
+                    <div class=" form-group">
+                      <label> Name</label>
+                      <input
+                        class=" form-control"
+                        placeholder="Name"
+                        type="text"
+                        formControlName="name"
+                        [(ngModel)]="position.name"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class=" row">
+                  <div class=" col-md-6 pr-md-1">
+                    <div class=" form-group">
+                      <label> Company</label>
+                      <input
+                        class=" form-control"
+                        placeholder="Company"
+                        type="text"
+                        formControlName="company"
+                        [(ngModel)]="position.company"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class=" row">
+                  <div class=" col-md-6 pr-md-1">
+                    <div class=" form-group">
+                      <label> Department</label>
+                      <input
+                        class=" form-control"
+                        placeholder="Department"
+                        type="text"
+                        formControlName="department"
+                        [(ngModel)]="position.department"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div class=" row">
+                  <div class=" col-md-6 pr-md-1">
+                    <div class=" form-group">
+                      <label> Location</label>
+                      <input
+                        class=" form-control"
+                        placeholder="Location"
+                        type="text"
+                        formControlName="location"
+                        [(ngModel)]="position.location"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class=" row">
+                  <div class=" col-md-6 pr-md-1">
+                    <div class=" form-group">
+                      <label> Min Experience</label>
+                      <input
+                        class=" form-control"
+                        placeholder="Min Experience"
+                        type="number"
+                        min="0"
+                        formControlName="minExp"
+                        [(ngModel)]="position.minExp"
+                      />
+                    </div>
+                  </div>
+                </div><div class=" row">
+                  <div class=" col-md-6 pr-md-1">
+                    <div class=" form-group">
+                      <label> Max Exp</label>
+                      <input
+                        class=" form-control"
+                        placeholder="Max Experience"
+                        type="number"
+                        min="0"
+                        formControlName="maxExp"
+                        [(ngModel)]="position.maxExp"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class=" row">
+                  <div class=" col-md-6 pr-md-1">
+                    <div class=" form-group">
+                      <label> Min CTC</label>
+                      <input
+                        class=" form-control"
+                        placeholder="Min CTC"
+                        type="number"
+                        min="0"
+                        formControlName="minCtc"
+                        [(ngModel)]="position.minCtc"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class=" row">
+                  <div class=" col-md-6 pr-md-1">
+                    <div class=" form-group">
+                      <label> Max CTC</label>
+                      <input
+                        class=" form-control"
+                        placeholder="Max CTC"
+                        type="number"
+                        min="0"
+                        formControlName="maxCtc"
+                        [(ngModel)]="position.maxCtc"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class=" row">
+                    <div class=" col-md-6 pr-md-1">
+                      <div class=" form-group">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <label>Is the <b>TEST</b> required for this Position?</label>
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                              <label class="btn btn-simple" (click)="position.isTest= false"
+                                [ngClass]="{ active: position.isTest=== false }">
+                                <input checked="checked" name="options" type="radio" name="isTest" id="isTest1"
+                                  autocomplete="off" checked />
+                                <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                                  Not required
+                                </span>
+                              </label>
+                              <label class="btn btn-simple" (click)="position.isTest= true"
+                                [ngClass]="{ active: position.isTest=== true }">
+                                <input class="d-none" name="options" type="radio" name="isTest" id="isTest2"
+                                  autocomplete="off" />
+                                <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                                  Required
+                                </span>
+                              </label>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                <div class="row">
+                    <div class="col-md-6 pr-md-1">
+                    <div class="form-group">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <label>Do the candidate need to have a <b>offer in hand?</b></label>
+                        <div matTooltip="This feature is a part to our premium subscription" matTooltipPosition="right">
+                        <div class="btn-group btn-group-toggle locked" data-toggle="buttons">
+                          <label class="btn btn-simple disabled" (click)="position.isOfferInHand= false"
+                          [ngClass]="{ active: position.isOfferInHand=== false }">
+                            <input checked="checked" disabled name="options" type="radio" name="isOfferInHand" id="isOfferInHand1"
+                              autocomplete="off" checked />
+                            <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                              Not required
+                            </span>
+                          </label>
+                          <label class="btn btn-simple disabled" (click)="position.isOfferInHand= true"
+                            [ngClass]="{ active: position.isOfferInHand=== true }">
+                            <input class="d-none" name="options" type="radio" name="isOfferInHand" id="isOfferInHand2"
+                              autocomplete="off" />
+                            <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                              Required
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                    <div class=" row">
+                        <div class=" col-md-6 pr-md-1">
+                            <div class=" form-group">
+
+                              <div class="d-flex justify-content-between align-items-center">
+                                <label>Is the <b>Name of new Company</b> required?</label>
+                                <div matTooltip="This feature is a part to our premium subscription" matTooltipPosition="right">
+                                <div class="btn-group btn-group-toggle locked" data-toggle="buttons">
+                                  <label class="btn btn-simple disabled" (click)="position.isNewCompany= false"
+                                    [ngClass]="{ active: position.isNewCompany=== false }">
+                                    <input checked="checked" disabled name="options" type="radio" name="isNewCompany" id="isNewCompany1"
+                                      autocomplete="off" checked />
+                                    <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                                      Not required
+                                    </span>
+                                  </label>
+                                  <label class="btn btn-simple disabled" (click)="position.isNewCompany= true"
+                                    [ngClass]="{ active: position.isNewCompany=== true }">
+                                    <input class="d-none" name="options" type="radio" name="isOfferInHand" id="isNewCompany2"
+                                      autocomplete="off" />
+                                    <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                                      Required
+                                    </span>
+                                  </label>
+                                </div>
+                              </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" row">
+                        <div class=" col-md-6 pr-md-1">
+                        <div class=" form-group">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <label>Is the <b>Offered Package</b> required?</label>
+                            <div matTooltip="This feature is a part to our premium subscription" matTooltipPosition="right">
+                            <div class="btn-group btn-group-toggle locked" data-toggle="buttons">
+                              <label class="btn btn-simple disabled" (click)="position.isNewOffer= false"
+                                [ngClass]="{ active: position.isNewOffer=== false }">
+                                <input checked="checked" disabled name="options" type="radio" name="isNewOffer" id="isNewOffer1"
+                                  autocomplete="off" checked />
+                                <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                                  Not required
+                                </span>
+                              </label>
+                              <label class="btn btn-simple disabled" (click)="position.isNewOffer= true"
+                                [ngClass]="{ active: position.isNewOffer=== true }">
+                                <input class="d-none" name="options" type="radio" name="isNewOffer" id="isNewOffer2"
+                                  autocomplete="off" />
+                                <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                                  Required
+                                </span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class=" row">
+                      <div class=" col-md-6 pr-md-1">
+                        <div class=" form-group">
+                          <label>Must haves for the position</label>
+                          <input
+                            class=" form-control"
+                            placeholder="Other Mendatory points"
+                            type="text"
+                            formControlName="other"
+                            [(ngModel)]="position.other"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class=" row">
+                      <div class=" col-md-6 pr-md-1">
+                            <mat-chip-list #chipList aria-label="Enter Tags">
+                              <mat-chip *ngFor="let tag of tags" (removed)="remove(tag)">
+                                {{tag.name}}
+                                <button matChipRemove>
+                                  x
+                                </button>
+                              </mat-chip>
+                            </mat-chip-list>
+                      </div>
+                    </div>
+                    <div class=" row">
+                      <div class=" col-md-6 pr-md-1">
+                        <div class=" form-group">
+                          <label> Tags</label>
+                          <input placeholder="Tags" class="form-control"
+                                     [matChipInputFor]="chipList"
+                                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                     [matChipInputAddOnBlur]="addOnBlur"
+                                     (matChipInputTokenEnd)="add($event)">
+                        </div>
+                      </div>
+                    </div>
+
+
+                </div>
+            <div class=" card-footer">
+              <button class=" btn btn-fill btn-primary" [disabled]="!newPosition.valid">Save</button>
+            </div>
+          </form>
+        </div>
+          </div>
+      </div>
+    </div>
+</div>

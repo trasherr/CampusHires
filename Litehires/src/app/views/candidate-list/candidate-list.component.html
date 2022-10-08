@@ -1,0 +1,58 @@
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Candidates</h4>
+        </div>
+        <div class="card-body">
+          <div class=" table-responsive">
+            <table class=" table tablesorter" id="">
+              <thead class="text-primary">
+                <th></th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Submitted By</th>
+                <th>Position</th>
+                <th>Company</th>
+                <th>Main SKill</th>
+                <th>location</th>
+                <th>Experience</th>
+                <th>Current CTC</th>
+                <th>Expected CTC</th>
+                <th></th>
+              </thead>
+              <tbody>
+                <!-- candidates -->
+                <ng-template ngFor let-candidate [ngForOf]="candidates_list" let-i="index">
+                  <tr class="" style = "cursor: pointer;">
+                    <td>{{i+1}}</td>
+                    <td>{{candidate.first_name}} {{candidate.last_name}}</td>
+                    <td>{{candidate.email}}</td>
+                    <td>{{candidate.phone_no}}</td>
+                    <td>{{candidate.user.first_name}}&ensp;{{ candidate.user.last_name }}</td>
+                    <td>{{candidate.position.name}}</td>
+                    <td>{{candidate.position.company}}</td>
+                    <td>{{candidate.skill}}</td>
+                    <td>{{candidate.location}}</td>
+                    <td>{{candidate.experience}}</td>
+                    <td>{{candidate.currentCtc}}</td>
+                    <td>{{candidate.expectedCtc}}</td>
+                    <td>
+                      <button class="btn btn-primary btn-simple btn-fab btn-icon btn-round" matTooltip="edit candidate details"
+                        (click)="updateCandidateDetails(candidate)">
+                        <fa-icon [icon]="faPencil"></fa-icon>
+                      </button>
+                    </td>
+                  </tr>
+                </ng-template>
+                <!-- end candidates -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

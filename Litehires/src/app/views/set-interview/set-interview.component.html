@@ -1,0 +1,153 @@
+<div class="card ">
+
+<!-- <mat-progress-bar  mode="indeterminate"></mat-progress-bar> -->
+  <div class="card-header d-flex align-items-center gap-5">
+    <button class="btn btn-primary btn-fab btn-icon btn-round" #close (click)="dialogRef.close()">
+      <fa-icon [icon]="faArrowAltCircleLeft"></fa-icon>
+    </button>
+    <h2 class="card-title">Schedule Interview</h2>
+  </div>
+  <div [ngStyle]="{ display: (scheduling)? 'block' : 'none' }" >
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="interviewForm" (ngSubmit)="scheduleInterview()" novalidate>
+      <div class="form-group d-grid gap-1">
+
+        <div class="d-felx">
+          <mat-form-field appearance="fill">
+            <mat-label>Choose a date and time</mat-label>
+            <input matInput [ngxMatDatetimePicker]="picker"
+                            formControlName="start"
+                            [min]="minDate"
+                            >
+            <mat-datepicker-toggle matSuffix [for]="$any(picker)">
+            </mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #picker
+              [stepHour]="1" [stepMinute]="15"
+              [defaultTime]="minTime"
+              [showSpinners]="true"
+              [touchUi]="false"
+              [enableMeridian]="true"
+              >
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+
+
+      <div class="d-flex justify-content-between align-items-center">
+        <label></label>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-simple"
+            [ngClass]="{ active: duration == 15 }">
+            <input type="radio" [formControl]="durationControl" value="15" [(ngModel)]="duration"
+          required checked />
+            <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+              15 Min
+            </span>
+          </label>
+          <label class="btn btn-simple"
+            [ngClass]="{ active: duration == 30 }" >
+            <input type="radio" value="30" [formControl]="durationControl" [(ngModel)]="duration"
+           required />
+            <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+              30 Min
+            </span>
+          </label>
+          <label class="btn btn-simple"
+            [ngClass]="{ active: duration == 60 }">
+            <input type="radio" value="60" [formControl]="durationControl" [(ngModel)]="duration"
+           required />
+            <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+              60 Min
+            </span>
+          </label>
+        </div>
+      </div>
+        </div>
+
+
+        <input class = "form-control" formControlName="name" type="text" name="interview_title" id="interview_title" placeholder="Interview Title">
+        <textarea class="form-control" formControlName="des" placeholder="Interview Description"></textarea>
+
+        <div class="d-flex justify-content-between align-items-center">
+          <label>Meeting Format</label>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-simple"
+              [ngClass]="{ active: meetingFormat == 'ONLINE' }">
+              <input type="radio" value="ONLINE" [formControl]="formatControl" [(ngModel)]="meetingFormat"
+             required checked />
+              <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                Online
+              </span>
+            </label>
+            <label class="btn btn-simple"
+              [ngClass]="{ active: meetingFormat == 'PHONE' }" >
+              <input type="radio" value="PHONE" [formControl]="formatControl"  [(ngModel)]="meetingFormat"
+             required />
+              <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                Phone Call
+              </span>
+            </label>
+            <label class="btn btn-simple"
+              [ngClass]="{ active: meetingFormat == 'F2F' }" >
+              <input type="radio" value="F2F" [formControl]="formatControl"  [(ngModel)]="meetingFormat"
+             required />
+              <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                F2F (In Person)
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div [ngSwitch]="meetingFormat">
+          <div *ngSwitchCase="'ONLINE' " >
+            <input class = "form-control" placeholder="Powered By Jitsi Meet" type="text" readonly>
+            <img src="../assets/img/jitsiLogo.png" alt="jitsi logo" class="p-1" width= "100px">
+          </div>
+
+          <div *ngSwitchCase="'PHONE' " >
+            <input class = "form-control"  placeholder="Phone No" formControlName="value1" type="tel">
+          </div>
+
+          <div *ngSwitchCase="'F2F' " >
+            <input class = "form-control" formControlName="value2" placeholder="Address" type="text">
+          </div>
+        </div>
+            <mat-form-field class="example-chip-list" appearance="fill">
+              <mat-label>Add Member</mat-label>
+              <mat-chip-list #chipList aria-label="Fruit selection">
+                <mat-chip
+                  *ngFor="let user of emails"
+                  (removed)="remove(user)">
+                  {{user}}
+                  <button matChipRemove>
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip>
+                <input
+                  placeholder="New Member..."
+                  #emailInput
+                  formControlName="members"
+                  [formControl]="emailCtrl"
+                  [matAutocomplete]="auto"
+                  [matChipInputFor]="chipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  (matChipInputTokenEnd)="add($event)">
+              </mat-chip-list>
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                <mat-option *ngFor="let user of filteredEmails | async" [value]="user">
+                  {{user}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-fill btn-primary" [disabled]="emails.length == 0 || !interviewForm.valid || scheduling" >
+          Schedule
+        </button>
+      </div>
+      </form>
+  </div>
+</div>
+

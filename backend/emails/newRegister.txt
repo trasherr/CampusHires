@@ -1,0 +1,13 @@
+<br>
+<br>
+A new user just registered on Litehires
+<br>
+<br>
+<br>
+--first-- --last--
+<br>
+--email--
+<br>
+--vendor--
+<br>
+<br>

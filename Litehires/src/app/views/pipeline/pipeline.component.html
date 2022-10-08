@@ -1,0 +1,79 @@
+<div class="content">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center gap-5">
+        <div class="mt-0 text-start">
+          <a (click)="openEditDialog(position)" class="box-title mb-0 mt-1 mb-3 mr-3" style="cursor: pointer;">{{ position?.name }}&ensp;{{ user?.isVendor ? '('+position?.company+')' : '' }}&ensp;<fa-icon [icon]="faEllipsis"></fa-icon></a>
+          <app-add-member *ngIf="role?.slug != 'LITEHIRES-VENDOR' " [position]="position"></app-add-member>
+        </div>
+        <button [routerLink]="['/'+dashUrl+'/add-candidate',positionId]" class="btn btn-primary">
+          Add Candidate
+        </button>
+      </div>
+      <div class="card-header d-flex justify-content-between align-items-center gap-5 pt-0">
+        <div class="d-flex align-items-center text-muted mb-sm-1">
+          {{ position?.location }}&ensp;|&ensp;{{ position?.minExp }}-{{ position?.maxExp }}&ensp;years&ensp;|&ensp;{{ position?.minCTC }}-{{ position?.maxCTC }}&ensp;LPA
+        </div>
+      </div>
+      <div class="card-body pipe-card" [ngClass]="{'action-disable' :  cardDisable }">
+        <div cdkDropListGroup class="pipeline-card">
+          <div class="example-container">
+            <h2 class = "d-flex justify-content-between phase-header">Applied<div class="phase-length-indicator">{{applied.length}}</div></h2>
+            <div cdkDropList [cdkDropListData]="applied" class="example-list" (cdkDropListDropped)="drop($event)">
+              <div class="example-box" *ngFor="let item of applied" cdkDrag>
+                <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+                  <app-user-card [candidate]="(item)" (detailEvent)="openDetailView((item))"></app-user-card>
+              </div>
+            </div>
+          </div>
+
+          <div class="example-container">
+            <h2 class = "d-flex justify-content-between phase-header">Feedback<div class="phase-length-indicator">{{feedback.length}}</div></h2>
+            <div cdkDropList [cdkDropListData]="feedback" class="example-list" (cdkDropListDropped)="drop($event)">
+              <div class="example-box" *ngFor="let item of feedback" cdkDrag>
+                <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+                <app-user-card [candidate]="(item)" (detailEvent)="openDetailView((item))"></app-user-card>
+              </div>
+            </div>
+          </div>
+
+          <div class="example-container">
+            <h2 class = "d-flex justify-content-between phase-header">Interview<div class="phase-length-indicator">{{interview.length}}</div></h2>
+            <div cdkDropList  [cdkDropListData]="interview" class="example-list" (cdkDropListDropped)="drop($event)">
+              <div class="example-box" *ngFor="let item of interview" cdkDrag>
+                <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+                <app-user-card [candidate]="(item)" (detailEvent)="openDetailView((item))"></app-user-card>
+              </div>
+            </div>
+          </div>
+
+          <div class="example-container">
+            <h2 class = "d-flex justify-content-between phase-header">Offer<div class="phase-length-indicator">{{offer.length}}</div></h2>
+            <div cdkDropList [cdkDropListData]="offer" class="example-list" (cdkDropListDropped)="drop($event)">
+              <div class="example-box" *ngFor="let item of offer" cdkDrag>
+                <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+                <app-user-card [candidate]="(item)" (detailEvent)="openDetailView((item))"></app-user-card>
+              </div>
+            </div>
+          </div>
+
+          <div class="example-container">
+            <h2 class = "d-flex justify-content-between phase-header">Disqualified<div class="phase-length-indicator">{{disqualified.length}}</div></h2>
+            <div cdkDropList [cdkDropListData]="disqualified" class="example-list" (cdkDropListDropped)="drop($event)">
+              <div class="example-box" *ngFor="let item of disqualified" cdkDrag>
+                <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+                <app-user-card [candidate]="(item)" (detailEvent)="openDetailView((item))"></app-user-card>
+              </div>
+            </div>
+          </div>
+        <div class="example-container">
+          <h2 class = "d-flex justify-content-between phase-header">Hired<div class="phase-length-indicator">{{hired.length}}</div></h2>
+          <div cdkDropList [cdkDropListData]="hired" class="example-list" (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let item of hired" cdkDrag>
+              <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+              <app-user-card [candidate]="(item)" (detailEvent)="openDetailView((item))"></app-user-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

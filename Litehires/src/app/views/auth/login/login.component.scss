@@ -1,0 +1,32 @@
+:host{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: rgb(94, 112, 237);
+}
+.login{
+  margin-inline-start: 10px;
+  background: rgb(236, 0, 80);
+}
+.signup{
+  background: rgb(101, 255, 25);
+  color: #111;
+}
+
+.signup:hover{
+  color: #fff;
+}
+
+nav{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding-top: 30px;
+  padding-inline: 10%;
+}
+
+.input-group-text{
+  padding: 0.5rem 0.7rem !important;
+}

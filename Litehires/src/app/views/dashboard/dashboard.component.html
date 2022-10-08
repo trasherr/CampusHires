@@ -1,0 +1,154 @@
+
+<div class=" content">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <app-card-dashboard [calendar]="calendar" [positions]="allPositions" ></app-card-dashboard>
+        </div>
+
+      </div>
+    </div>
+    <app-admin-charts [allPositions]="allPositions" [allUsers]="allUsers" *ngIf="userType == 'admin' " ></app-admin-charts>
+    <app-user-charts  [allPositions]="allPositions" *ngIf="userType != 'admin' " ></app-user-charts>
+
+
+  <!-- <div class=" row">
+    <div class=" col-lg-12">
+      <div class=" card card-chart">
+        <div class=" card-header">
+          
+          <div class=" row">
+            <div class=" col-sm-6 text-left">
+              <h5 class=" card-category">Candidate Uploaded in Recent Positions</h5>
+              <h2 class=" card-title">Positions</h2>
+            </div>
+            <div class=" col-sm-6">
+              <div
+                class=" btn-group btn-group-toggle float-right"
+                data-toggle="buttons">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class=" card-body">
+          <div class=" chart-area"><canvas id="chartBig1"> </canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class=" row">
+    <div class=" col-lg-4">
+      <div class=" card card-chart">
+        <div class=" card-header">
+          <h5 class=" card-category" *ngIf="position">{{ position?.name }}(Candidates uploaded in last year)</h5>
+          <h3 class=" card-title">
+            <i class=" tim-icons icon-bell-55 text-danger-states"> </i>{{ sumCandidates }}
+          </h3>
+        </div>
+        <div class=" card-body">
+          <div class=" chart-area"><canvas id="chartLineRed"> </canvas></div>
+        </div>
+      </div>
+    </div>
+    <div class=" col-lg-4">
+      <div class=" card card-chart">
+        <div class=" card-header">
+          <h5 class=" card-category">Members(Candidates by each member)</h5>
+          <h3 class=" card-title">
+            <i class=" tim-icons icon-delivery-fast text-info" *ngIf="position"> </i> {{ position?.candidates.length }}
+          </h3>
+        </div>
+        <div class=" card-body">
+          <div class=" chart-area"><canvas id="CountryChart"> </canvas></div>
+        </div>
+      </div>
+    </div>
+    <div class=" col-lg-4">
+      <div class=" card card-chart">
+        <div class=" card-header">
+          <h5 class=" card-category">{{ position?.name }}(Candidates hired in last year)</h5>
+          <h3 class=" card-title">
+            <i class=" tim-icons icon-send text-success"> </i> {{ sumHiredCandidates }}
+          </h3>
+        </div>
+        <div class=" card-body">
+          <div class=" chart-area"><canvas id="chartLineGreen"> </canvas></div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div class=" row">
+    <div class=" col-lg-6 col-md-12">
+      <div class=" card">
+        <div class=" card-header">
+          <h4 class=" card-title">Recent Postions</h4>
+        </div>
+        <div class=" card-body">
+          <div class=" table-responsive">
+            <table class=" table tablesorter" id="">
+              <thead class=" text-primary">
+                <tr>
+                  <th>Name</th>
+                  <th>Candidates</th>
+                  <th>Location</th>
+                  <th class=" text-center"></th>
+                </tr>
+              </thead>
+              <tbody>
+                 <ng-template ngFor let-position [ngForOf]="allPositions" let-i="index" >
+                    <tr *ngIf="i < 5" [routerLink]="['/'+dashUrl+'/pipeline', position?.id]" style = "cursor: pointer;">
+                      <td>{{ position?.name }}</td>
+                      <td>{{ position?.candidates.length }}</td>
+                      <td>{{ position?.location }}</td>
+                      <td class=" text-center">{{ position?.createdAt | date }}</td>
+                    </tr>
+
+                </ng-template>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div> 
+    <div class=" col-lg-6 col-md-12">
+      <div class=" card">
+        <div class=" card-header">
+          <h4 class=" card-title">Recent Candidates</h4>
+        </div>
+        <div class=" card-body">
+          <div class=" table-responsive">
+            <table class=" table tablesorter" id="">
+              <thead class=" text-primary">
+                <tr>
+                  <th></th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Position</th>
+                <th>location</th>
+                <th>Experience</th>
+                <th>Current CTC</th>
+                <th>Expected CTC</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-template ngFor let-candidate [ngForOf]="recentCandidates" let-i="index">
+                  <tr *ngIf="i < 5" [routerLink]="['/'+dashUrl+'/', candidate?.positionId]" style = "cursor: pointer;">
+                    <td>{{i+1}}</td>
+                    <td>{{candidate.first_name}} {{candidate.last_name}}</td>
+                    <td>{{candidate.email}}</td>
+                    <td>{{candidate.phone_no}}</td>
+                    <td>{{candidate.position.name}}</td>
+                    <td>{{candidate.location}}</td>
+                    <td>{{candidate.experience}}</td>
+                    <td>{{candidate.currentCtc}}</td>
+                    <td>{{candidate.expectedCtc}}</td>
+                  </tr>
+                </ng-template>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+</div>

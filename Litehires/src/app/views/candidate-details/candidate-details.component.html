@@ -1,0 +1,147 @@
+<div class="card user-details-dialog">
+  <div class="card-header d-flex justify-content-between align-items-center gap-5">
+    <button class="btn btn-primary btn-fab btn-icon btn-round" (click)="dialogRef.close()">
+      <fa-icon [icon]="faArrowAltCircleLeft"></fa-icon>
+    </button>
+    <h2 class="card-title">{{candidateData.first_name}} {{candidateData.last_name}}</h2>
+    <div class="candidate-actions">
+      <button class="btn btn-primary" (click)="setAnInterview(candidateData)">
+        Set an Interview
+      </button>
+      <button class="btn btn-primary btn-simple btn-fab btn-icon btn-round" matTooltip="edit candidate details"
+        (click)="updateCandidateDetails(candidateData)">
+        <fa-icon [icon]="faPencil"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="resume candidate-detail-section">
+      <div class="section-head">Resume</div>
+      <app-resume [pdfSrc]="candidateData.resume"></app-resume>
+    </div>
+    <div class="chat candidate-detail-section">
+      <div class="section-head d-flex justify-content-between align-items-center mr-1 mb-0">Chat
+
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-simple p-1" [ngClass]="{ active: userChat == 'user' }">
+              <input type="radio" value="user" id="gender-male" [(ngModel)]="userChat" required checked />
+              <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                Intenal Chat
+              </span>
+            </label>
+            <label class="btn btn-simple p-1" [ngClass]="{ active: userChat == 'candidate' }">
+              <input type="radio" value="candidate" id="gender-female" [(ngModel)]="userChat" required />
+              <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                Candidate Chat
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <app-candidate-chat *ngIf="userChat == 'user' " [candidateId]="(candidateData.id)"
+        [positionId]="(candidateData.positionId)"></app-candidate-chat>
+      <app-candidate-users-chat *ngIf="userChat == 'candidate' " [cid]="(candidateData.id)"
+        [pid]="(candidateData.positionId)"></app-candidate-users-chat>
+    </div>
+    <div class="candidate-info d-flex flex-column gap-1 candidate-detail-section">
+      <div class="section-head">
+        Candidate Details
+      </div>
+      <div class="candidate-detail-container">
+        <div class="candidate-info-attr">
+          <div class="attr-lable">Name</div>
+          <div class="attr-val">{{candidateData.first_name}} {{candidateData.last_name}}</div>
+        </div>
+        <div class="candidate-info-attr">
+          <div class="attr-lable">Email</div>
+          <div class="attr-val">{{candidateData.email}}</div>
+        </div>
+        <div class="candidate-info-attr">
+          <div class="attr-lable">Phone</div>
+          <div class="attr-val">{{candidateData.phone_no}}</div>
+        </div>
+        <div class="candidate-info-attr">
+          <div class="attr-lable">Gender</div>
+          <div class="attr-val">{{candidateData.gender}}</div>
+        </div>
+        <div class="candidate-info-attr">
+          <div class="attr-lable">Current CTC</div>
+          <div class="attr-val">{{candidateData.currentCtc}} LPA</div>
+        </div>
+        <div class="candidate-info-attr">
+          <div class="attr-lable">Expected CTC</div>
+          <div class="attr-val">{{candidateData.expectedCtc}} LPA</div>
+        </div>
+        <div class="candidate-info-attr">
+          <div class="attr-lable">Location</div>
+          <div class="attr-val">{{candidateData.location}}</div>
+        </div>
+        <div class="candidate-info-attr">
+          <div class="attr-lable">Experience</div>
+          <div class="attr-val">{{candidateData.experience}} Yrs</div>
+        </div>
+
+        <div class="candidate-info-attr">
+          <div class="attr-lable">Main Skill</div>
+          <div class="attr-val">{{ candidateData.skill }}</div>
+        </div>
+        <div >
+          <div class="attr-lable">Secondary Skills  </div>
+          <ul *ngIf="candidateData?.skills">
+            <div>
+            <mat-chip-list #chipList aria-label="Skills">
+            <!-- <div class="example-box" *ngFor="let item of candidateData.skills" > -->
+              <!-- <li class="attr-val">{{ item.name }}</li> -->
+                  <mat-chip *ngFor="let item of candidateData.skills">
+                    {{ item.name }}
+                  </mat-chip>
+                </mat-chip-list>
+              <!-- </div> -->
+            </div>
+          </ul>
+        </div>
+
+        <div *ngIf="candidateData.unemployed" class="candidate-info-attr">
+            <div  class="attr-lable"> Unemployed </div>
+            <div class="attr-val">Yes</div>
+        </div>
+        <div *ngIf="!candidateData.unemployed" class="candidate-info-attr">
+            <div  class="attr-lable"> Notice </div>
+            <div class="attr-val">{{ candidateData.lastDay | date }}</div>
+        </div>
+        <div *ngIf="!candidateData.unemployed" class="candidate-info-attr">
+            <div  class="attr-lable"> Current Company </div>
+            <div class="attr-val">{{ candidateData.currentCompany }}</div>
+        </div>
+
+        <div class="candidate-info-attr">
+          <div class="attr-lable">Ready to relocate </div>
+          <div class="attr-val">{{ (candidateData.rtc) ? "Yes" : "No" }}</div>
+        </div>
+
+        <div class="candidate-info-attr">
+          <div class="attr-lable">Applied For </div>
+          <div class="attr-val">{{ candidateData.position.name }}</div>
+        </div>
+
+        <div *ngIf="candidateData.newPosition" class="candidate-info-attr">
+          <div class="attr-lable">Position</div>
+          <div class="attr-val">{{candidateData.newPosition}}</div>
+        </div>
+        <div class="candidate-info-attr">
+          <div class="attr-lable">Offer In Hand</div>
+          <div class="attr-val">{{ (candidateData.offerInHand)? "Yes": "No" }}</div>
+        </div>
+        <div *ngIf="candidateData.offerInHand" class="candidate-info-attr">
+          <div class="attr-lable">New Company</div>
+          <div class="attr-val">{{candidateData.newCompany}}</div>
+        </div>
+        <div *ngIf="candidateData.offerInHand" class="candidate-info-attr">
+          <div class="attr-lable">New Offer</div>
+          <div class="attr-val">{{candidateData.newOffer}} LPA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

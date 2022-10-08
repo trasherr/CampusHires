@@ -1,0 +1,35 @@
+.card-header{
+  display: flex;
+  justify-content: space-between;
+}
+.logged-in {
+  color: green;
+}
+
+.logged-out {
+  color: red;
+}
+
+.dot_ACTIVE{
+  height: 10px;
+  width: 10px;
+  border-radius: 10px;
+  background-color: #03fc56;
+}
+.dot_HOLD{
+  height: 10px;
+  width: 10px;
+  border-radius: 10px;
+  background-color: orange;
+}
+.dot_INACTIVE{
+  height: 10px;
+  width: 10px;
+  border-radius: 10px;
+  background-color: #fc0341;
+}
+
+th,td{
+  vertical-align: middle;
+  text-align: center;
+}

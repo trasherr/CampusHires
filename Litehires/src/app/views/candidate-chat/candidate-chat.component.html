@@ -1,0 +1,67 @@
+<mat-progress-bar *ngIf="chatCheck" mode="indeterminate"></mat-progress-bar>
+<div *ngIf="!chatLock" class="chat">
+  <div id="chat-section">
+    <div *ngFor="let msg of chat">
+      <div *ngIf="msg.isStatus" class="message">
+        <div class="time-stamp d-flex mb-1 justify-content-center align-items-center">
+          <div class="log-date-time">{{ msg.createdAt | date: "medium" }}</div>
+        </div>
+        <div class="log">{{ msg.content }}</div>
+      </div>
+      <div *ngIf="msg.isMedia" class="message">
+        <div class="me">
+          <div class="file" (click)="download(msg.content)">
+            {{ msg.content }}
+            <fa-icon [icon]="downloadFileIcon"></fa-icon>
+          </div>
+          <div class="date-time chat-box">
+            {{ msg.createdAt | date: "medium" }}
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!msg.isStatus && userId == msg.userId && !msg.isMedia" class="message">
+        <div class="me">
+          <div class="msg">
+            {{ msg.content }}
+            </div>
+          <div class="date-time chat-box">
+            {{ msg.createdAt | date: "medium" }}
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!msg.isStatus && userId != msg.userId && !msg.isMedia" class="message d-flex flex-column">
+        <div class="other">
+          <div class="sender-name">
+            {{ msg.user.first_name }}&ensp;{{ msg.user.last_name }}
+          </div>
+          <div class="msg">
+          {{ msg.content }}
+          </div>
+          <div class="date-time chat-box">
+            {{ msg.createdAt | date: "medium" }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form (ngSubmit)="sendMessage(message.value)" class="chat-input" novalidate>
+    <input type="text" #message name="message-box" id="message-box" placeholder="Send Message" />
+    <fa-icon [icon]="attachIcon" (click)="uploadFile()" class="btn btn-link btn-icon btn-round attach-file-button"></fa-icon>
+
+    <fa-icon [icon]="mailIcon" (click)="sendEmail()" class="btn btn-link btn-icon btn-round mail-button"></fa-icon>
+
+    <button class="btn btn-primary btn-fab btn-icon btn-round ml-2">
+      <fa-icon [icon]="sendIcon"></fa-icon>
+    </button>
+  </form>
+</div>
+
+<div *ngIf="chatLock && !chatCheck" class="chat">
+
+    <button class="btn btn-primary " (click)="meetingResponse('DONE')" > Done </button>
+    <button class="btn btn-primary " (click)="meetingResponse('NO SHOW')" > No Show </button>
+    <button class="btn btn-primary " (click)="meetingResponse('PANEL NOT AVAILABLE')" > Panel not available </button>
+    <button class="btn btn-primary " (click)="meetingResponse('OTHER')" > Other </button>
+</div>
+
+

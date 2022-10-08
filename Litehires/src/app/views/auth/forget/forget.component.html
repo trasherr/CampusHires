@@ -1,0 +1,106 @@
+<div class="container mt-8 pb-5">
+  <nav>
+    <div class="logo ">
+      <a [routerLink]="['']"><img src="../../../assets/img/Logo_white.svg" alt="Litehires" style="height: 55px; margin-bottom: 50px;" /></a>
+    </div>
+  </nav>
+<div class="row p-10 justify-content-center">
+<div class="col-lg-5 col-md-7">
+  <div class="card bg-secondary shadow border-0">
+    <div class="card-header bg-transparent d-flex align-items-center justify-content-center pb-1">
+      <h1>SignIn</h1>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="header bg-gradient-danger py-7 py-lg-8">
+    <div class="container">
+      <div class="header-body text-center mb-7">
+        <div class="row justify-content-center">
+          <div class="col-lg-5 col-md-6">
+            <h1 class="text-white">Welcome!</h1>
+            <p class="text-lead text-light">Use these awesome forms to login or create new account in your project for free.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="separator separator-bottom separator-skew zindex-100">
+      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div>
+  </div>
+  <!-- Page content -->
+  <div class="container mt--8 pb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-5 col-md-7">
+        <div class="card bg-secondary shadow border-0">
+          <div class="card-header bg-transparent pb-5">
+            <div class="text-muted text-center mt-2 mb-3"><small>Forget Password</small></div>
+          </div>
+          <div class="card-body px-lg-5 py-lg-5">
+            <div class="text-center text-muted mb-4">
+              <small>Enter email for a verification email</small>
+            </div>
+            <small>
+              <div class="text-muted">{{ forgetInfo }}</div>
+            </small>
+            <form [formGroup]="reset" (ngSubmit)="sendOTP(email.value)" novalidate>
+              <div class="form-group mb-3">
+                <small>
+                        <div *ngIf="!reset.get('email')?.errors?.['required'] && reset.get('email')?.errors">
+                            Please enter a valid email address
+                        </div>
+                        <div *ngIf="reset.get('email')?.invalid && (reset.get('email')?.dirty || reset.get('email')?.touched) && reset.get('email')?.errors?.['required']">
+                            Email is required
+                        </div>
+                </small>
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                  </div>
+                  <input class="form-control" placeholder="Email" #email type="email" name="email" formControlName="email" id="email">
+                </div>
+              </div>
+              <div class="text-center">
+                <button [disabled]="!reset.valid" class="btn btn-primary my-4">Send OTP</button>
+              </div>
+            </form>
+          <app-read-otp *ngIf="isEmail && !isOTP"  (otpValue)="otpSubmit($event)" [otpEmail]="otpEmail"></app-read-otp>
+            <div *ngIf="isEmail && isOTP && !isPass">
+                <form [formGroup]="resetPassword" (ngSubmit)="resetPass(password.value)" novalidate>
+
+                    <div class="form-group mb-3">
+                        <small>
+                            <div *ngIf="!resetPassword.get('password')?.errors?.['required']">
+                                Password length must be greater than or equal to 8 and password must contain one or more uppercase , lowercase , numeric and special characters
+                            </div>
+                            <div *ngIf="resetPassword.get('password')?.invalid && (resetPassword.get('password')?.dirty || resetPassword.get('password')?.touched) && resetPassword.get('password')?.errors?.['required']">
+                                Password is required
+                            </div>
+                        </small>
+                        <div class="input-group input-group-alternative">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                        </div>
+                        <input class="form-control" placeholder="Password" #password type="password" name="password" formControlName="password" id="password">
+                        </div>
+                    </div>
+                    <div class="text-center">
+                    <button [disabled]="!resetPassword.valid" class="btn btn-primary my-4">Reset Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-6">
+          <a [routerLink]="['/login']" class="text-light"><small>Sign in</small></a>
+        </div>
+        <div class="col-6 text-right">
+          <a [routerLink]="['/register']" class="text-light"><small>Create new account</small></a>
+        </div>
+     </div>
+    </div>
+  </div>

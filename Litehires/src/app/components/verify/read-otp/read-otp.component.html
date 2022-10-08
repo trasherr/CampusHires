@@ -1,0 +1,24 @@
+<small><div class="text-muted">{{ otpEmail }}</div></small>
+
+<form [formGroup]="otpForm" (ngSubmit)="submitOTP(otpInput.value)" novalidate>
+                
+    <div class="form-group mb-3">
+        <small>
+            <div *ngIf="!otpForm.get('otp')?.errors?.['required'] && otpForm.get('otp')?.errors">
+                OTP is a 6 digit number
+            </div>
+            <div *ngIf="(otpForm.get('otp')?.dirty || otpForm.get('otp')?.touched) && otpForm.get('otp')?.errors?.['required']">
+                OTP is required
+            </div>
+        </small>
+        <div class="input-group input-group-alternative">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+        </div>
+        <input class="form-control" placeholder="OTP" #otpInput type="number" name="otp" minlength="6" maxlength="6" formControlName="otp" id="otp">
+        </div>
+    </div>
+    <div class="text-center">
+    <button [disabled]="!otpForm.valid"  class="btn btn-primary my-4">Reset Password</button>
+    </div>
+</form>

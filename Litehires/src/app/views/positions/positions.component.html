@@ -1,0 +1,70 @@
+<div class=" content">
+  <div class=" row">
+    <div class=" col-md-12">
+      <div class=" card ">
+        <div class=" card-header">
+          <h4 class=" card-title">Positions</h4>
+
+          <button *ngIf="userType != 'admin'" [routerLink]="['/'+dashUrl+'/positions/newPosition']" class="btn btn-primary"> New Positions </button>
+        </div>
+        <div class=" card-body">
+          <div class=" table-responsive">
+            <table class=" table tablesorter" id="">
+              <thead class=" text-primary">
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Company</th>
+                  <th>Visibility</th>
+                  <th>Candidates</th>
+                  <th>CTC</th>
+                  <th>Experience</th>
+                  <th>Location</th>
+                  <th></th>
+                  <th  class=" text-center">Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Positions -->
+                <ng-template ngFor let-position [ngForOf]="positions" let-i="index" >
+                  <tr class="card-box" style = "cursor: pointer;">
+                    <td [routerLink]="['/'+dashUrl+'/pipeline', position.id]">
+                      <div class="products__cell">
+                        <a class="products__item" href="#">
+                          <div class="dot_{{ position.status }}"></div>
+                        </a>
+                      </div>
+                    </td>
+                    <td [routerLink]="['/'+dashUrl+'/pipeline', position.id]">{{ i+1 }}</td>
+                    <td [routerLink]="['/'+dashUrl+'/pipeline', position.id]">{{ position.name }}</td>
+                    <td [routerLink]="['/'+dashUrl+'/pipeline', position.id]">{{ position.company }}</td>
+                    <td [routerLink]="['/'+dashUrl+'/pipeline', position.id]">
+                      <span *ngIf="position.isPublicApplied && !position.isPublic" class="badge bg-danger text-center" >Waiting for approval</span>
+                      <span *ngIf="position.isPublicApplied && position.isPublic" class="badge bg-success text-center">Public</span>
+                      <span *ngIf="!position.isPublicApplied" class="badge bg-info text-center" >Private</span>
+
+                      <!-- <span class="badge bg-{{ (position.isPublic) ? 'warning' : 'info' }} text-center">{{ (position.isPublic) ? "Public" : "Private" }}</span></td> -->
+                    <td [routerLink]="['/'+dashUrl+'/pipeline', position.id]"><span class="badge bg-danger text-center">{{ position.candidates.length }}</span></td>
+                    <td [routerLink]="['/'+dashUrl+'/pipeline', position.id]">{{ position.minCTC }}&ensp;LPA&emsp;-&emsp;{{ position.maxCTC }}&ensp;LPA</td>
+                    <td [routerLink]="['/'+dashUrl+'/pipeline', position.id]">{{ position.minExp }}&ensp;years&emsp;-&emsp;{{ position.maxExp }}&ensp;years</td>
+                    <td [routerLink]="['/'+dashUrl+'/pipeline', position.id]"><span class="badge bg-primary text-center">{{ position.location }}</span></td>
+                    <td>
+                      <dir *ngIf="userType == 'admin'" class="d-flex justify-content-center" style="padding-left: 0px;">
+                        <button *ngIf="position.isPublicApplied && !position.isPublic" class="btn btn-danger p-1 pl-4 pr-4 fs-8" (click)="approvePosition(position)">Approve</button>
+                        <span *ngIf="position.isPublicApplied && position.isPublic" class="badge bg-success text-center">Approved</span>
+                        <span *ngIf="!position.isPublicApplied" class="badge bg-secondary text-center">Approve</span>
+                      </dir>
+                    </td>
+                    <td [routerLink]="['/'+dashUrl+'/pipeline', position.id]" class=" text-center">{{ position.createdAt | date }}</td>
+                  </tr>
+                </ng-template>
+                <!-- end Positions -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

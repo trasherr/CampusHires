@@ -1,0 +1,74 @@
+<div class="container mt-8 pb-5">
+        <nav>
+          <div class="logo ">
+            <a [routerLink]="['']"><img src="../../../assets/img/Logo_white.svg" alt="Litehires" style="height: 55px; margin-bottom: 50px;" /></a>
+          </div>
+        </nav>
+    <div class="row p-10 justify-content-center">
+      <div class="col-lg-5 col-md-7">
+        <div class="card bg-secondary shadow border-0">
+          <div class="card-header bg-transparent d-flex align-items-center justify-content-center pb-1">
+            <h1>SignIn</h1>
+          </div>
+          <div class="card-body px-lg-5 py-lg-5">
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate role="form">
+              <div class="form-group mb-3">
+
+                  <div class="text-muted" *ngIf="!loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.errors">
+                    Please enter a valid email address
+                  </div>
+                  <div class="text-muted" *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched) && loginForm.get('email')?.errors?.['required']">
+                    Email is required
+                  </div>
+
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><fa-icon [icon]="faEnvelope"></fa-icon></span>
+                  </div>
+                  <input class="form-control" placeholder="Email" id="email" formControlName="email" name="email">
+                </div>
+              </div>
+              <div class="form-group">
+                <small>
+                  <div class="text-danger" *ngIf="!loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.errors">
+                    Password length must be greater than or equal to 8 and password must contain one or more uppercase , lowercase , numeric and special characters
+                  </div>
+                  <div class="text-danger" *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched) && loginForm.get('password')?.errors?.['required']">
+                    Password is required
+                  </div>
+                </small>
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><fa-icon [icon]="faCommentDots"></fa-icon></span>
+                  </div>
+                  <input class="form-control" placeholder="Password" id="password" type="password" name="password" formControlName="password">
+                </div>
+              </div>
+              <div class="text-danger">{{ error }}</div>
+              <div class="d-flex gap-1 justify-content-center align-items-center">
+                <input class="check" (change)="isRemember = !isRemember" id="remember-me" type="checkbox" name="remember-me">
+
+                <label class="" for=" remember-me">
+                  <span class="">Remember me</span>
+                </label>
+              </div>
+              <div class="text-center">
+                <div class="btn-wrapper">
+                  <a [routerLink]="['/register']" class="btn signup">
+                    <span class="btn-inner--text">Sign up</span>
+                  </a>
+                  <button [disabled]="!loginForm.valid" class="btn login">Login</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-6">
+            <a [routerLink]="['/forget']" class="text-light"><small>Forgot password?</small></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

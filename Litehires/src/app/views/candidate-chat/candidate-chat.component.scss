@@ -1,0 +1,112 @@
+.chat{
+  display: flex;
+  min-height: 95%;
+  max-height: 95%;
+  flex-direction: column;
+  padding: 1.25rem;
+  bottom: 0;
+  width: 100%;
+  gap: 2px;
+  align-items: flex-end;
+  justify-content: flex-end;
+  align-content: flex-start;
+  overflow-y: scroll !important;
+}
+.chat-box{
+  font-size: 8pt;
+}
+
+.me{
+  background-color: #a78bdbe4;
+  color: #fefeff;
+  padding: 10px;
+  max-width: fit-content;
+  margin-left: auto;
+  margin-top: 5px;
+  border-radius: 20px 20px 0px 20px;
+}
+
+.other{
+  background-color: #9d9797;
+  color: #ffffff;
+  padding: 10px;
+  margin-right: auto;
+  margin-top: 5px;
+  border-radius: 20px 20px 20px 0px;
+}
+
+.chat > div{
+  width: 100%;
+}
+
+.chat-input{
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding-top: 10px;
+}
+
+#message-box{
+  border-radius: 25px;
+  border: 1px solid #a0a0a0;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 65px;
+  margin-right: 4px;
+  flex: auto;
+}
+
+.date-time{
+  width: 100%;
+  text-align: center;
+}
+
+.log{
+  text-align: center;
+  font-weight: 600;
+}
+
+#chat-section{
+  height: calc(100vh - 230px);
+  overflow: scroll;
+}
+
+.log-date-time{
+  font-size: smaller;
+  margin-top: 8px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  text-align: center;
+  background-color: #8a9ddf;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+
+.sender-name{
+  font-weight: 700;
+  color: rgb(227, 227, 227);
+}
+
+.file{
+  cursor: pointer;
+}
+
+.msg{
+  margin-block: 4px;
+}
+
+.attach-file-button{
+  margin-top: 20px;
+  margin-left: -75px;
+}
+
+.mail-button{
+  margin-top: 20px;
+  margin-left: -10px;
+}
+
+.enable-mail{
+  color: #8000ff;
+}

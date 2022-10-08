@@ -1,0 +1,268 @@
+
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center gap-5">
+          <h4 class="title">Edit Candidate</h4>
+          <div class="actions">
+
+            <button class="btn btn-primary btn-fab btn-icon btn-round" matTooltip="Delete Candidate" (click)="delCandidate()">
+              <fa-icon [icon]="deleteIcon" class="cursor"></fa-icon>
+            </button>
+          <button class="btn btn-primary btn-fab btn-icon btn-round" (click)="dialogRef.close()">
+            <fa-icon [icon]="faArrowAltCircleLeft"></fa-icon>
+          </button>
+          </div>
+        </div>
+
+        <div class="card-body" >
+
+          <div >
+            <div class="mt-3">
+              <label>Upload Resume</label>
+              <app-resume-upload [positionId]="candidateData.positionId" [candidate]="candidateData.id.toString()"></app-resume-upload>
+            </div>
+          </div>
+          <form [formGroup]="editCandidate" (ngSubmit)="onSubmit()" novalidate>
+            <div class="card-body">
+              <div class="pr-md-1">
+                <div class="form-group">
+                  <label>First Name</label>
+                  <input class="form-control" placeholder="First Name" type="text" formControlName="first_name"
+                    [(ngModel)]="candidate.first_name" required />
+                  <!-- <div class="form-text text-danger"
+                    *ngIf="first_name.errors?.['required'] && (first_name.touched || first_name.dirty)">
+                    First name is required
+                  </div>
+                  <div class="form-text text-danger"
+                    *ngIf="first_name.errors?.['minlength'] && (first_name.touched || first_name.dirty)">
+                    First name is too short.
+                  </div>
+                  <div class="form-text text-danger"
+                    *ngIf="first_name.errors?.['pattern'] && (first_name.touched || first_name.dirty)">
+                    First name should start with Alphabet.
+                  </div> -->
+
+                  <label>Last Name</label>
+                  <input class="form-control" placeholder="Last Name" type="text" formControlName="last_name"
+                    [(ngModel)]="candidate.last_name" />
+                  <!-- <div class="form-text text-danger"
+                    *ngIf="last_name.errors?.['required'] && (last_name.touched || last_name.dirty)">
+                    Last name is required
+                  </div>
+                  <div class="form-text text-danger"
+                    *ngIf="last_name.errors?.['minlength'] && (last_name.touched || last_name.dirty)">
+                    Last name is too short.
+                  </div>
+                  <div class="form-text text-danger"
+                    *ngIf="last_name.errors?.['pattern'] && (last_name.touched || last_name.dirty)">
+                    Last name should start with Alphabet.
+                  </div> -->
+
+                  <label>Email</label>
+                  <input class="form-control" matInput placeholder="Email" type="email" formControlName="email"
+                    [(ngModel)]="candidate.email" required />
+                  <!-- <div class="form-text text-danger"
+                    *ngIf="email.errors?.['required'] && (email.touched || email.dirty)">
+                    Email Id is required
+                  </div>
+                  <div class="form-text text-danger" *ngIf="email.errors?.['email'] && (email.touched || email.dirty)">
+                    Email is invalid.
+                  </div> -->
+
+                  <label>Phone</label>
+                  <input class="form-control" placeholder="Phone" type="tel" formControlName="phone_no"
+                    [(ngModel)]="candidate.phone_no" required />
+                  <!-- <div class="form-text text-danger"
+                    *ngIf="phone_no.errors?.['required'] && (phone_no.touched || phone_no.dirty)">
+                    Mobile number is required
+                  </div>
+                  <div class="form-text text-danger" *ngIf="phone_no.errors?.['pattern'] ">
+                    Mobile number is invalid
+                  </div>
+                  <div class="form-text text-danger"
+                    *ngIf="phone_no.errors?.['minlength'] && (phone_no.touched || phone_no.dirty)">
+                    Mobile number is short
+                  </div>
+                  <div class="form-text text-danger"
+                    *ngIf="phone_no.errors?.['maxlength'] && (phone_no.touched || phone_no.dirty)">
+                    Mobile number is long
+                  </div> -->
+
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label>Gender</label>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-simple"
+                        [ngClass]="{ active: candidate.gender === 'MALE' }">
+                        <input type="radio" value="MALE" id="gender-male" formControlName="gender"
+                      [(ngModel)]="candidate.gender" required checked />
+                        <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                          Male
+                        </span>
+                      </label>
+                      <label class="btn btn-simple"
+                        [ngClass]="{ active: candidate.gender === 'FEMALE' }">
+                        <input type="radio" value="FEMALE" id="gender-female" formControlName="gender"
+                      [(ngModel)]="candidate.gender" required />
+                        <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                          Female
+                        </span>
+                      </label>
+                      <label class="btn btn-simple"
+                        [ngClass]="{ active: candidate.gender === 'OTHERS' }">
+                        <input type="radio" value="OTHERS" id="gender-others" formControlName="gender"
+                      [(ngModel)]="candidate.gender" required />
+                        <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                          Others
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- <div class="form-text text-danger"
+                    *ngIf="gender.errors?.['required'] && (gender.touched || gender.dirty)">
+                    Select Gender
+                  </div> -->
+                  <label>Position</label>
+                  <input class="form-control" placeholder="Position" type="text" formControlName="position"
+                    [(ngModel)]="candidate.position" />
+
+                  <label>Current CTC</label>
+                  <input class="form-control" placeholder="Current CTC (in LPA)" type="number" min="0"
+                    formControlName="currentCtc" [(ngModel)]="candidate.currentCtc" />
+                  <!-- <div class="form-text text-danger"
+                    *ngIf="currentCtc.errors?.['required'] && (currentCtc.touched || currentCtc.dirty)">
+                    Please Enter your Current CTC
+                  </div> -->
+
+                  <label>Expected CTC</label>
+                  <input class="form-control" placeholder="Expected CTC (in LPA)" type="number" min="0"
+                    formControlName="expectedCtc" [(ngModel)]="candidate.expectedCtc" />
+                  <!-- <div class="form-text text-danger"
+                    *ngIf="expectedCtc.errors?.['required'] && (expectedCtc.touched || expectedCtc.dirty)">
+                    Please Enter Expected CTC
+                  </div> -->
+
+                  <label>Location</label>
+                  <input class="form-control" placeholder="Location" type="text" formControlName="location"
+                    [(ngModel)]="candidate.location" required />
+                  <!-- <div class="form-text text-danger"
+                    *ngIf="location.errors?.['required'] && (location.touched || location.dirty)">
+                    Please Enter your Location
+                  </div> -->
+
+                  <div class="d-flex gap-3 align-item-center">
+                    <label class="mb-0">Is the candidate ready to relocate?</label>
+                    <input type="checkbox" formControlName="rtc" [(ngModel)]="candidate.rtc" class="check" />
+                  </div>
+                  <br />
+
+                  <label>Experience</label>
+                  <input class="form-control" placeholder="Experience (in Years)" type="number" min="0"
+                    formControlName="experience" [(ngModel)]="candidate.experience" required />
+                  <!-- <div class="form-text text-danger"
+                    *ngIf="experience.errors?.['required'] && (experience.touched || experience.dirty)">
+                    Please Enter your Experience
+                  </div> -->
+
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label>Is the candidate on <b>notice period</b>?</label>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-simple" (click)="setNotice(false)"
+                        [ngClass]="{ active: candidate.notice === false }">
+                        <input checked="checked" name="options" type="radio" name="notice" id="notice1"
+                          autocomplete="off" checked />
+                        <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                          No
+                        </span>
+                      </label>
+                      <label class="btn btn-simple" (click)="setNotice(true)"
+                        [ngClass]="{ active: candidate.notice === true }">
+                        <input class="d-none" name="options" type="radio" name="notice" id="notice2"
+                          autocomplete="off" />
+                        <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                          Yes
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div *ngIf="!candidate.notice" class="d-flex justify-content-between align-items-center">
+                    <label>Is the candidate <b>unemployed</b>?</label>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-simple" (click)="setUnemployed(false)"
+                        [ngClass]="{ active: candidate.unemployed === false }">
+                        <input checked="checked" name="options" type="radio" name="unemployed" id="unemployed1"
+                          autocomplete="off" checked />
+                        <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                          No
+                        </span>
+                      </label>
+                      <label class="btn btn-simple" (click)="setUnemployed(true)"
+                        [ngClass]="{ active: candidate.unemployed === true }">
+                        <input class="d-none" name="options" type="radio" name="unemployed" id="unemployed2"
+                          autocomplete="off" />
+                        <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                          Yes
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div *ngIf="candidate.notice">
+                    <label>Last Date</label>
+                    <input class="form-control" type="date" formControlName="lastDay" [(ngModel)]="candidate.lastDay" />
+                    <label>Current Company</label>
+                    <input class="form-control" placeholder="Current Company" type="text"
+                      formControlName="currentCompany" [(ngModel)]="candidate.currentCompany" />
+                    <!-- <div class="form-text text-danger"
+                      *ngIf="currentCompany.errors?.['required'] && (currentCompany.touched || currentCompany.dirty)">
+                      Please enter current company
+                    </div> -->
+                  </div>
+
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label>Does the candidate have any <b>offer in hand</b>?</label>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-simple" (click)="candidate.offerInHand = false"
+                        [ngClass]="{ active: candidate.offerInHand === false }">
+                        <input checked="checked" name="options" type="radio" name="offerInHand" id="offerInHand1"
+                          autocomplete="off" checked />
+                        <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                          No
+                        </span>
+                      </label>
+                      <label class="btn btn-simple" (click)="candidate.offerInHand = true"
+                        [ngClass]="{ active: candidate.offerInHand === true }">
+                        <input class="d-none" name="options" type="radio" name="offerInHand" id="offerInHand2"
+                          autocomplete="off" />
+                        <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                          Yes
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div *ngIf="candidate.offerInHand">
+                    <label>New Company</label>
+                    <input class="form-control" placeholder="New Company" type="text" formControlName="newCompany"
+                      [(ngModel)]="candidate.newCompany" />
+
+                    <label>CTC offered by new company</label>
+                    <input class="form-control" placeholder="New Offer" type="number" min="0" formControlName="newOffer"
+                      [(ngModel)]="candidate.newOffer" />
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-fill btn-primary" [disabled]="!editCandidate.valid">
+                    Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- <div class="card-body" *ngIf="uploadNow">
+          <label>Upload Resume</label>
+          <app-resume-upload [positionId]="positionId" [candidate]="setResume"></app-resume-upload>
+        </div> -->
+      </div>
+

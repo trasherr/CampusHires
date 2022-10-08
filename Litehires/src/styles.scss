@@ -1,0 +1,95 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap');
+@import "/node_modules/angular-calendar/scss/angular-calendar.scss";
+@import "/node_modules/angular-calendar/scss/angular-calendar.scss";
+
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif!important;
+}
+$bg-dark-primary: #1f262d;
+$bg-dark-secondary: #394046;
+$bg-active: #2c343a;
+$text-color: #d5d6d7;
+$border-color: rgba(0, 0, 0, 0.6);
+
+// Call the calendar mixin with a sass color map of your theme. Every property is optional.
+// For a list of all variables and how they are used,
+// see https://github.com/mattlewis92/angular-calendar/tree/master/projects/angular-calendar/src/variables.scss
+@include cal-theme(
+    (
+      bg-primary: $bg-dark-primary,
+      bg-secondary: $bg-dark-secondary,
+      weekend-color: indianred,
+      bg-active: $bg-active,
+      border-color: $border-color,
+      gray: $bg-dark-secondary,
+      today-bg: $bg-dark-secondary,
+      event-color-primary: $bg-dark-secondary
+    )
+);
+
+.mat-form-field-wrapper{
+  margin-inline: 5px;
+}
+
+.mat-form-field-flex{
+  border-radius: 20px!important;
+}
+.mat-form-field-underline {
+  display: none;
+}W
+
+.fc-daygrid-event:hover{
+  width: fit-content;
+  background-color: #ececec!important;
+  z-index: 20000!important;
+  box-shadow: 0px 8px 7px #0000006b;
+  padding-inline: 5px;
+  color: #000;
+}
+
+
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(255, 255, 255);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #9c9d9cad;
+  border-radius: 5px;
+  width: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #9c9d9c;
+}
+
+
+
+
+td > .mat-form-field {
+  width: 25px!important;
+  max-width: 25px!important;
+}
+
+.mat-datepicker-content {
+  border-radius: 20px!important;
+}
+
+
+.mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button {
+  border-radius: 20px!important;
+}

@@ -1,0 +1,63 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: rgb(94, 112, 237);
+}
+
+.login {
+  margin-inline-start: 10px;
+  background: rgb(236, 0, 80);
+}
+
+.signup {
+  background: rgb(101, 255, 25);
+  color: #111;
+}
+
+.vendor {
+  background-color: #f4f5f7;
+  background: #f4f5f7;
+  background-image: linear-gradient(#f4f5f7, #f4f5f7);
+  border: 1px solid rgb(94, 112, 237);
+  color: rgb(56, 68, 143);
+}
+
+.btn.active {
+  background-color: rgb(94, 112, 237) !important;
+  background: rgb(94, 112, 237) !important;
+  background-image: linear-gradient(rgb(94, 112, 237), rgb(94, 112, 237)) !important;
+  color: #fff;
+}
+
+.btn:hover {
+  background-color: rgb(56, 68, 143) !important;
+  background: rgb(56, 68, 143) !important;
+  background-image: linear-gradient(rgb(56, 68, 143), rgb(56, 68, 143)) !important;
+  border: 1px solid rgb(56, 68, 143);
+  color: #fff;
+}
+
+.signup:hover {
+  color: #fff;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding-top: 30px;
+  padding-inline: 10%;
+}
+
+.input-group-text {
+  padding: 0.5rem 0.7rem !important;
+}
+
+.vendor-toggle{
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 10px
+}
