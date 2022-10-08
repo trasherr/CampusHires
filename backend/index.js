@@ -2,9 +2,9 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import csurf from 'csurf';
-import cookie from 'cookie-parser';
-import session from 'express-session';
+// import csurf from 'csurf';
+// import cookie from 'cookie-parser';
+// import session from 'express-session';
 import  dotenv from 'dotenv';
 //================================================
 dotenv.config()
@@ -29,7 +29,7 @@ let app = express();
 import path from "path";
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import Candidate from './models/Candidate.js';
+// import Candidate from './models/Candidate.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -38,14 +38,14 @@ global.appRoot = path.resolve(__dirname);
 //========================================================
 
 // setting up cookie, session and csrf ==================
-app.use(cookie())
-app.set('trust proxy', 1) // trust first proxy((for session))
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
-}))
+// app.use(cookie())
+// app.set('trust proxy', 1) // trust first proxy((for session))
+// app.use(session({
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: { secure: true }
+// }))
 //========================================================
 //enable in production
 // app.use(csurf({cookie:true}));

@@ -155,14 +155,14 @@ export const updateUser = async (req,res) => {
 }
 
 export const changePassword = async (req,res) => {
-    let usr = await User.findOne({ where: {id: req.body.id, password: crypto.createHash('sha256').update(`litehires-${req.body.password}`).digest('hex')  } })
+    let usr = await User.findOne({ where: {id: req.body.id, password: crypto.createHash('sha256').update(`campusHires-${req.body.password}`).digest('hex')  } })
 
     if (usr == null){
         res.send({message: "Current password didn't match", type: "error"})
         return null;
     }
     else{
-        await User.update({password: crypto.createHash('sha256').update(`litehires-${req.body.new_password}`).digest('hex') }, { where: { id: usr.id } })
+        await User.update({password: crypto.createHash('sha256').update(`campusHires-${req.body.new_password}`).digest('hex') }, { where: { id: usr.id } })
         res.send({message: "Password changed", type: "success"})
     }
 
@@ -337,14 +337,14 @@ export const addMember = async (req,res) => {
             
             // send mail with defined transport object
             await transporter.sendMail({
-            from: `Litehires <${ (process.env.PRODUCTION) ? process.env.MAILUSER : process.env.MAILTRAP_USER}>`, // sender address
+            from: `CampusHires <${ (process.env.PRODUCTION) ? process.env.MAILUSER : process.env.MAILTRAP_USER}>`, // sender address
             to: req.body.email, // list of receivers
             subject: "Invitation", // Subject line
             html: htmlTemplate
                 .replace("--JOB--",pos.name)
                 .replace("--ROLE--",role.name)
                 .replace("--ROLE--",role.name)
-                .replace("--SENDER--","Litehires")
+                .replace("--SENDER--","CampusHires")
                 .replace("--URL--",`${process.env.FRONTDOMAIN}/userDashboard/joinPosition/${rand}`), // html body
             });
         res.send({res:"success"});
@@ -730,7 +730,7 @@ export const interview = async (req,res) => {
             title: req.body.name,
             description: `${req.body.des}`,
             method:"REQUEST",
-            uid:`${room}@litehires.com`,
+            uid:`${room}@campusHires.com`,
             start: [icalTime.year(), icalTime.month(), icalTime.date(), icalTime.hour(), icalTime.minute()],
             location: meetingLink,
             duration: { minutes: req.body.duration },
@@ -748,7 +748,7 @@ export const interview = async (req,res) => {
         // send mail all the User invited to the meeting
         interviewUser.forEach( async (value) => {
             await transporter.sendMail({
-                from: `Litehires <${ (process.env.PRODUCTION) ? process.env.MAILUSER : process.env.MAILTRAP_USER}>`, // sender address
+                from: `CampusHires <${ (process.env.PRODUCTION) ? process.env.MAILUSER : process.env.MAILTRAP_USER}>`, // sender address
                 to: value.email, 
                 subject: "Interview",
                 html: htmlTemplate
@@ -770,7 +770,7 @@ export const interview = async (req,res) => {
 
         //send mail to the candidate
         await transporter.sendMail({
-            from: `Litehires <${ (process.env.PRODUCTION) ? process.env.MAILUSER : process.env.MAILTRAP_USER}>`, // sender address
+            from: `CampusHires <${ (process.env.PRODUCTION) ? process.env.MAILUSER : process.env.MAILTRAP_USER}>`, // sender address
             to: candidate.email, 
             subject: "Interview",
             html: htmlTemplate
@@ -827,7 +827,7 @@ export const interview = async (req,res) => {
             title: req.body.name,
             description: `${req.body.des}`,
             method:"REQUEST",
-            uid:`${room}@litehires.com`,
+            uid:`${room}@campusHires.com`,
             start: [icalTime.year(), icalTime.month(), icalTime.date(), icalTime.hour(), icalTime.minute()],
             location: req.body.value == "F2F" ? req.body.value : `Phone (${req.body.value})`,
             duration: { minutes: req.body.duration },
@@ -845,7 +845,7 @@ export const interview = async (req,res) => {
         // send mail all the User invited to the meeting
         interviewUser.forEach( async (value) => {
             await transporter.sendMail({
-                from: `Litehires <${ (process.env.PRODUCTION) ? process.env.MAILUSER : process.env.MAILTRAP_USER}>`, // sender address
+                from: `CampusHires <${ (process.env.PRODUCTION) ? process.env.MAILUSER : process.env.MAILTRAP_USER}>`, // sender address
                 to: value.email, 
                 subject: "Interview",
                 html: htmlTemplate
@@ -867,7 +867,7 @@ export const interview = async (req,res) => {
 
         //send mail to the candidate
         await transporter.sendMail({
-            from: `Litehires <${ (process.env.PRODUCTION) ? process.env.MAILUSER : process.env.MAILTRAP_USER}>`, // sender address
+            from: `CampusHires <${ (process.env.PRODUCTION) ? process.env.MAILUSER : process.env.MAILTRAP_USER}>`, // sender address
             to: candidate.email, 
             subject: "Interview",
             html: htmlTemplate
@@ -918,7 +918,7 @@ export const resendInvite = async (req,res) => {
               
     // send mail with defined transport object
     await transporter.sendMail({
-    from: `Litehires <${ (process.env.PRODUCTION) ? process.env.MAILUSER : process.env.MAILTRAP_USER}>`, // sender address
+    from: `CampusHires <${ (process.env.PRODUCTION) ? process.env.MAILUSER : process.env.MAILTRAP_USER}>`, // sender address
     to: req.body.email, // list of receivers
     subject: "Invitation", // Subject line
     html: htmlTemplate

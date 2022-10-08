@@ -25,7 +25,7 @@ export const login = async (req,res) => {
         { where: 
             { 
                 email: req.body.email , 
-                password: crypto.createHash('sha256').update(`litehires-${req.body.password}`).digest('hex')
+                password: crypto.createHash('sha256').update(`campusHires-${req.body.password}`).digest('hex')
             } 
         }).catch(function(error){
             res.send(error);
@@ -71,7 +71,7 @@ export const register = async (req,res) => {
             email: req.body.email,
             phone_no: req.body.phone_no,
             company: req.body.company,
-            password: crypto.createHash('sha256').update(`litehires-${req.body.password}`).digest('hex'),
+            password: crypto.createHash('sha256').update(`campusHires-${req.body.password}`).digest('hex'),
             isVendor: req.body.isVendor
         }).catch(function(e) {
             res.send(e);
@@ -80,8 +80,8 @@ export const register = async (req,res) => {
         res.send(data);
         const htmlTemplate = await fs.readFile('emails/newRegister.txt', { encoding: 'utf8' });
         await transporter.sendMail({
-            from: `Litehires <${ (process.env.PRODUCTION) ? process.env.MAILUSER : process.env.MAILTRAP_USER}>`, // sender address
-            to: 'ankit.khanduri@litehires.com', // list of receivers
+            from: `CampusHires <${ (process.env.PRODUCTION) ? process.env.MAILUSER : process.env.MAILTRAP_USER}>`, // sender address
+            to: 'ankit.khanduri@campusHires.com', // list of receivers
             subject: 'New Registration', // Subject line
             html: htmlTemplate.replace("--first--",data.first_name).replace("--last--",data.last_name).replace("--email--",data.email).replace("--vendor--",(data.isVendor)? "As Vendor": "As Client"), // html body
         }).catch(err => { console.log( err );});
@@ -140,7 +140,7 @@ export const sendOTP = async (req,res) => {
           
           // send mail with defined transport object
           await transporter.sendMail({
-            from: `Litehires <${ (process.env.PRODUCTION) ? process.env.MAILUSER : process.env.MAILTRAP_USER}>`, // sender address
+            from: `CampusHires <${ (process.env.PRODUCTION) ? process.env.MAILUSER : process.env.MAILTRAP_USER}>`, // sender address
             to: req.body.email, // list of receivers
             subject: req.body.subject, // Subject line
             text: "OTP", // plain text body
@@ -173,7 +173,7 @@ export const verifyOTP = async(req,res) => {
 
 export const changePass = async(req,res) => {
     await User.update(
-        {password: crypto.createHash('sha256').update(`litehires-${req.body.password}`).digest('hex')},
+        {password: crypto.createHash('sha256').update(`campusHires-${req.body.password}`).digest('hex')},
         { where: 
             { 
                 email: req.body.email 

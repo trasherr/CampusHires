@@ -1,0 +1,45 @@
+<div class="box left-dot">
+  <div class="box-body" (click)="detailEvent.emit()" >
+    <div class="row">
+      <div class="col-12">
+        <div class="mt-0 text-start">
+          <a class="box-title mb-0 mt-1 mb-3 font-w600 fs-20">{{ candidate.first_name }}&ensp;{{ candidate.last_name }}</a>
+            <div class="d-flex fs-14 font-w500 text-muted mb-6 gap-1 justify-content-between">
+              <span class="font-w600">{{ candidate.experience }}&ensp;years</span>
+              &ensp;|&ensp;
+              <span class="font-w600">{{candidate.currentCtc}}&ensp;LPA</span>
+              &ensp;|&ensp;
+              <span class="d-flex gap-2">Expected<div class="font-w600">{{candidate.expectedCtc }}&ensp;LPA</div></span>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="box-footer" (click)="detailEvent.emit()" >
+    <div *ngIf="candidate.user.position_users[0].role.slug != 'LITEHIRES-VENDOR' || userType == 'admin'" class="d-flex align-items-center text-muted mb-sm-1">Added by {{ candidate.user.first_name }}&ensp;{{candidate.user.last_name}}</div>
+    <div *ngIf="candidate.user.position_users[0].role.slug == 'LITEHIRES-VENDOR' && userType != 'admin' " class="d-flex align-items-center text-muted mb-sm-1">Added by CampusHires</div>
+    <div class="ms-auto mt-sm-0">
+      <div class="d-flex gap-1">
+        <div class="task-btn color-3 text-completed" data-bs-toggle="tooltip" data-bs-placement="top"
+          title="" data-bs-original-title="Project Priority">
+          <div matTooltip="Created At : {{
+              candidate.createdAt | date: 'dd-MM-YYYY hh:mm'
+            }}" class="date-created">
+            <fa-icon [icon]="faClock"></fa-icon>
+            {{ this.dateTimeAgo(created) }} ago
+          </div>
+        </div>
+        <div class="task-btn bg-color-2 text-success" data-bs-toggle="tooltip" data-bs-placement="top"
+          title="" data-bs-original-title="Project Priority">
+          <div matTooltip="Updated At : {{
+              candidate.updatedAt | date: 'dd-MM-YYYY hh:mm'
+            }}" class="date-updated">
+            <fa-icon [icon]="faBolt"></fa-icon>
+            {{ this.dateTimeAgo(updated) }} ago
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

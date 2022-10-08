@@ -71,12 +71,12 @@ StatusChange.belongsTo(User);
  //create admin account if it doesn't exists
  await User.findOrCreate({
    where : {email:"admin@gmail.com"},
-   defaults : {first_name:'admin', last_name:'user',email:"admin@gmail.com",password:crypto.createHash('sha256').update(`litehires-admin`).digest('hex'),isAdmin:1}
+   defaults : {first_name:'admin', last_name:'user',email:"admin@gmail.com",password:crypto.createHash('sha256').update(`campusHires-admin`).digest('hex'),isAdmin:1}
    });
 
 await User.findOrCreate({
    where : {email:"test@gmail.com"},
-   defaults : {first_name:'test', last_name:'user',email:"test@gmail.com",password:crypto.createHash('sha256').update(`litehires-tester`).digest('hex'),isAdmin:0}
+   defaults : {first_name:'test', last_name:'user',email:"test@gmail.com",password:crypto.createHash('sha256').update(`campusHires-tester`).digest('hex'),isAdmin:0}
    });
 
 //exports

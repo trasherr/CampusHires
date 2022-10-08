@@ -1,0 +1,189 @@
+<div class="container mt-8 pb-5">
+  <nav>
+    <div class="logo">
+      <a [routerLink]="['']"><img src="../../../assets/img/Logo_white.svg" alt="CampusHires"
+          style="height: 55px; margin-bottom: 50px;" />
+      </a>
+    </div>
+  </nav>
+  <div class="row p-10 justify-content-center">
+    <div class="col-lg-5 col-md-7">
+      <div class="card bg-secondary shadow border-0">
+        <div class="card-header bg-transparent d-flex align-items-center justify-content-center pb-1">
+          <h1>Sign up</h1>
+        </div>
+        <div class="card-body px-lg-5 py-lg-5">
+          <!-- <input type="radio" name="isVendor" (click)="setVendor(true)" > VENDOR
+            <input type="radio"  name="isVendor" (click)="setVendor(false)" checked> Client -->
+
+          <div class="btn-group btn-group-toggle vendor-toggle" data-toggle="buttons">
+            <label class="btn vendor" [ngClass]="{ active: isVendor === true}">
+              <input type="radio" value=true (click)="setVendor(true)" required checked />
+              <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                Vendor
+              </span>
+            </label>
+            <label class="btn vendor" [ngClass]="{ active: isVendor === false }">
+              <input type="radio" value=false (click)="setVendor(false)" required />
+              <span class="d-sm-block d-md-block d-lg-block d-xl-block">
+                Client
+              </span>
+            </label>
+          </div>
+
+          <small *ngIf="errors != '' ">{{ errors }}</small>
+          <small *ngIf="success != '' ">{{ success }}</small>
+          <form role="form" [formGroup]="signupForm"
+            (ngSubmit)="onSubmit(firstName.value,lastName.value,email.value,password.value,phone_no.value,company.value)">
+            <div class="form-group">
+              <small>
+                <div class="text-danger"
+                  *ngIf="signupForm.get('first_name')?.invalid && (signupForm.get('first_name')?.dirty || signupForm.get('first_name')?.touched) && signupForm.get('first_name')?.errors?.['required']">
+                  First Name is required
+                </div>
+              </small>
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                </div>
+                <input class="form-control" placeholder="First Name" #firstName id="first_name" type="text"
+                  formControlName="first_name" name="first_name">
+              </div>
+            </div>
+            <div class="form-group">
+              <small>
+                <div class="text-danger"
+                  *ngIf="signupForm.get('last_name')?.invalid && (signupForm.get('last_name')?.dirty || signupForm.get('last_name')?.touched) && signupForm.get('last_name')?.errors?.['required']">
+                  Last Name is required
+                </div>
+              </small>
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                </div>
+                <input class="form-control" placeholder="Last Name" #lastName id="last_name" type="text"
+                  formControlName="last_name" name="last_name">
+              </div>
+            </div>
+            <div class="form-group">
+              <small>
+                <div class="text-danger"
+                  *ngIf="!signupForm.get('email')?.errors?.['required'] && signupForm.get('email')?.errors">
+                  Please enter a valid email address
+                </div>
+                <div
+                  *ngIf="signupForm.get('email')?.invalid && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched) && signupForm.get('email')?.errors?.['required']">
+                  Email is required
+                </div>
+              </small>
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                </div>
+                <input class="form-control" placeholder="Email" #email id="email" type="email" formControlName="email"
+                  name="email">
+              </div>
+            </div>
+            <div class="form-group">
+              <small>
+                <div class="text-danger"
+                  *ngIf="signupForm.get('password')?.errors && !signupForm.get('password')?.errors?.['required']">
+                  Password length must be greater than or equal to 8 and password must contain one or more uppercase ,
+                  lowercase , numeric and special characters
+                </div>
+                <div class="text-danger"
+                  *ngIf="signupForm.get('password')?.invalid && (signupForm.get('password')?.dirty || signupForm.get('password')?.touched) && signupForm.get('password')?.errors?.['required']">
+                  Password is required
+                </div>
+              </small>
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                </div>
+                <input class="form-control" placeholder="Password" autocomplete="off" #password (change)="startMatch()"
+                  id="password" type="password" name="password" formControlName="password">
+              </div>
+            </div>
+            <!-- <div class="text-danger font-italic"><small>password strength: <span class="text-success font-weight-700">strong</span></small></div> -->
+            <div class="form-group">
+              <small>
+                <div class="text-danger" *ngIf="!match">
+                  Must Match Password
+                </div>
+              </small>
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                </div>
+                <input class="form-control" placeholder="Confirm Password" autocomplete="off" (change)="startMatch()"
+                  id="confirm_password" type="password" name="confirm_password" formControlName="confirm_password">
+              </div>
+            </div>
+            <div class="form-group">
+              <small>
+                <div class="text-danger"
+                  *ngIf="signupForm.get('phone_no')?.errors && !signupForm.get('phone_no')?.errors?.['required']">
+                  Phone No in valid
+                </div>
+                <div class="text-danger"
+                  *ngIf="signupForm.get('phone_no')?.invalid && (signupForm.get('phone_no')?.dirty || signupForm.get('phone_no')?.touched) && signupForm.get('phone_no')?.errors?.['required']">
+                  Phone No is required
+                </div>
+              </small>
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                </div>
+                <input class="form-control" placeholder="Phone No" #phone_no id="phone_no" type="text"
+                  formControlName="phone_no" name="phone_no">
+              </div>
+            </div>
+            <div class="form-group">
+              <small>
+                <div class="text-danger"
+                  *ngIf="signupForm.get('company')?.invalid && (signupForm.get('company')?.dirty || signupForm.get('company')?.touched) && signupForm.get('company')?.errors?.['required']">
+                  Company is required
+                </div>
+              </small>
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                </div>
+                <input class="form-control" placeholder="Company" #company id="company" type="text"
+                  formControlName="company" name="company">
+              </div>
+            </div>
+            <div class="row my-4">
+              <div class="col-12">
+                <div class="d-flex gap-1 justify-content-center align-items-center">
+                  <input class="check" formControlName="customCheckRegister" #customCheckRegister
+                    id="customCheckRegister" type="checkbox">
+                  <label class="" for="customCheckRegister">
+                    <span class="">I agree with the <a href="#!">Privacy Policy</a></span>
+                  </label>
+                </div>
+                <small>
+                  <div class="text-danger"
+                    *ngIf="(signupForm.get('customCheckRegister')?.dirty || signupForm.get('customCheckRegister')?.touched) && signupForm.get('customCheckRegister')?.errors?.['required']">
+                    You must agree to the Privacy Policy
+                  </div>
+                </small>
+
+              </div>
+            </div>
+            <div class="text-center">
+              <div class="btn-wrapper">
+                <a [routerLink]="['/login']" class="btn login">
+                  <span class="btn-inner--text">Login</span>
+                </a>
+
+                <button [disabled]="!signupForm.valid || !match || !matchStart || !customCheckRegister.checked"
+                  class="btn signup">Sign up</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

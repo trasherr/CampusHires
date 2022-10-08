@@ -1,0 +1,65 @@
+<div class=" content">
+    <div class=" row">
+      <div class=" col-md-12">
+        <div class=" card ">
+          <div class=" card-header">
+            <h4 class=" card-title">Users</h4>
+            <button (click)="refreshVendors()" class="btn btn-primary"> Refresh CampusHires Vendors </button>
+          </div>
+          <div class=" card-body">
+            <div class=" table-responsive">
+              <table class=" table tablesorter" id="">
+                <thead class=" text-primary">
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>User Type</th>
+                    <th>Enrol Status</th>
+                    <th>Company</th>
+                    <th>Joined</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Positions -->
+                  <ng-template ngFor let-user [ngForOf]="users" let-i="index" >
+                    <tr class="card-box">
+                      <td>{{ i+1 }}</td>
+                      <td>
+                        <ngx-avatar name="{{ user?.first_name }}" initialsSize="1" size="30" [textSizeRatio]="2" [round]="true" ></ngx-avatar>
+                      </td>
+                      <td>{{ user.first_name }}&ensp;{{ user.last_name }}</td>
+                      <td>{{ user.email }}</td>
+                      <td><span class="badge bg-{{ (user.isVendor) ? 'warning' : 'info' }} text-center">{{ (user.isVendor) ? "Vendor" : "Client" }}</span></td>
+                        <td   *ngIf="!user.isVendor"> <span class="badge bg-secondary text-center">Not Applied</span></td>
+                        <td *ngIf="(user.isVendor && !user.isVendorApplied)"> <span class="badge bg-danger text-center">Not Applied</span></td>
+                        <td *ngIf="user.isVendor && user.isVendorApplied && !user.isVendorApproved" ><button class="btn btn-danger p-1 pl-4 pr-4 fs-8" style="cursor: pointer;" (click)="approveVendor(user)" >Approve</button></td>
+                        <td *ngIf="user.isVendor && user.isVendorApplied && user.isVendorApproved"  ><span class="badge bg-success text-center">Approved</span></td>
+                      <td>{{ user.company }}</td>
+                      <td class=" text-center">{{ user.createdAt | date }}</td>
+                      <td class="d-flex">
+                        <button class="btn btn-primary btn-simple btn-fab btn-icon btn-round" matTooltip="Edit User details"
+                          (click)="updateUserDetails(user)">
+                          <fa-icon [icon]="faPencil"></fa-icon>
+                        </button>
+
+
+                        <button class="btn btn-primary btn-simple btn-fab btn-icon btn-round" matTooltip="Delete User"
+                        (click)="deleteUser(user)">
+                        <fa-icon [icon]="deleteIcon"></fa-icon>
+                      </button>
+
+                      </td>
+
+                    </tr>
+                  </ng-template>
+                  <!-- end Positions -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
