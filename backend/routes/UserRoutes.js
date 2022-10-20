@@ -2,7 +2,7 @@
 import express  from "express";
 
 //custom imports
-import  { addMember, joinMember, newPosition, positions, positionUsers, profile, roles, update, addCandidate, getCandidates, getAllCandidates, updateCandidateStatus, updateCandidatePriority, getEvents, getChat, sendChat, dashboard, recentEvents, position, rmMember, interview, positionStatusChange, changePassword, meetings, updateCandidateDetails,getCandidate, updatePostion, rmPosition, rmCandidate, getInvites, resendInvite, enrolVendor, positionVisibilityChange, meetingNoResponse, meetingResponse, getPositionData,sendChatUpdateEmail, sendCandidateChat, getCandidateChat, getRoom } from "../controllers/UserController.js";
+import  { addMember, joinMember, newPosition, positions, positionUsers, profile, roles, update, addCandidate, getCandidates, getAllCandidates, updateCandidateStatus, updateCandidatePriority, getEvents, getChat, sendChat, dashboard, recentEvents, position, rmMember, interview, positionStatusChange, changePassword, meetings, updateCandidateDetails,getCandidate, updatePostion, rmPosition, rmCandidate, getInvites, resendInvite, enrolVendor, positionVisibilityChange, meetingNoResponse, meetingResponse, getPositionData,sendChatUpdateEmail, sendCandidateChat, getCandidateChat, getRoom, trends, trendsData } from "../controllers/UserController.js";
 
 //route initialization
 const userRoute = express.Router();
@@ -49,6 +49,8 @@ userRoute.post('/meetingNoResponse',meetingNoResponse);
 userRoute.post('/meetingResponse',meetingResponse);
 userRoute.post('/getPositionData',getPositionData);
 userRoute.post('/sendChatUpdateEmail',sendChatUpdateEmail)
+userRoute.post('/trends', trends)
+userRoute.post('/trendsData', trendsData)
 
 
 export default userRoute;

@@ -19,6 +19,7 @@
         "dotenv": "^16.0.1",
         "express": "^4.17.3",
         "express-session": "^1.17.3",
+        "google-trends-api": "^4.9.2",
         "http": "^0.0.1-security",
         "ics": "^2.37.0",
         "jsonwebtoken": "^8.5.1",

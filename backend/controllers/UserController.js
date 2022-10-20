@@ -5,7 +5,7 @@ import PositionUser from "../models/PositionUser.js";
 import Role from "../models/Role.js";
 import User from "../models/User.js"
 import Tag from "../models/Tag.js"
-import pluck from 'arr-pluck';
+// import pluck from 'arr-pluck';
 import AddMember from "../models/AddMember.js";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
@@ -23,6 +23,8 @@ import StatusChange from "../models/StatusChange.js";
 import CandidateChatRoom from "../models/CandidateChatRoom.js";
 import CandidateChat from "../models/CandidateChat.js";
 import io from "../index.js";
+import googleTrends from 'google-trends-api';
+
 
 dotenv.config()
 
@@ -1125,4 +1127,39 @@ export const sendChatUpdateEmail = async(req,res) => {
         .replace("--companyName--",positionDetails.company)
     });
     res.send({res:"success"});
+}
+
+
+export const trends = async (req,res) => {
+
+    console.log(req.body.keyword);
+    googleTrends.autoComplete({
+        keyword: req.body.keyword,
+        startTime: moment().subtract('10',"years").toDate(),
+        category : 958
+    })
+        .then(results =>  {
+        res.send(results);
+        })
+        .catch( err => {
+        res.send(err);
+        })
+
+}
+
+export const trendsData = async (req,res) => {
+
+    console.log(req.body.keyword);
+    googleTrends.interestOverTime({
+        keyword: req.body.keyword,
+        startTime: moment().subtract('10',"years").toDate(),
+        category : 958
+    })
+        .then(results =>  {
+        res.send(results);
+        })
+        .catch( err => {
+        res.send(err);
+        })
+
 }

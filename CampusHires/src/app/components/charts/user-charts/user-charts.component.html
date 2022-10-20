@@ -3,6 +3,22 @@
       <div class=" card card-chart">
         <div class=" card-header">
 
+          <div class="row">
+            <div class="col-sm-6">
+              <!-- {{ linearRegression() }} -->
+
+              <input type="text" #trend (keyup)="getTrends(trend.value)">
+
+              
+              <mat-form-field appearance="fill">
+                <mat-label>Status</mat-label>
+                <mat-select [formControl]="trendsControl" (selectionChange)="getTrendsData()" [(ngModel)]="selectedTrends" multiple >
+                  <mat-option *ngFor="let item of trendsList" [value]="item.title">{{item.title}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+          </div>
           <div class=" row">
             <div class=" col-sm-6 text-left">
               <h5 class=" card-category">Candidate Uploaded in Recent Positions</h5>

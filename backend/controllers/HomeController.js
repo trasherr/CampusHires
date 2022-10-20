@@ -1,6 +1,7 @@
 import CandidateChat from "../models/CandidateChat.js";
 import CandidateChatRoom from "../models/CandidateChatRoom.js";
 
+import googleTrends from 'google-trends-api';
 
 export const getCandidateChat = async (req,res) => {
 
@@ -29,4 +30,31 @@ export const sendCandidateChat = async (req,res) => {
     let data  = await CandidateChat.findAll({where: { candidateId: room.candidateId } })
 
     res.send(data)
+}
+
+export const trends = async (req,res) => {
+
+    // googleTrends.interestOverTime({
+    //     keyword: ['PHP',"Node.js"],
+    //     startTime: moment().subtract('5',"years").toDate(),
+    //     category : 958
+    // })
+    //     .then(results =>  {
+    //     res.send(results);
+    //     })
+    //     .catch( err => {
+    //     res.send(err);
+    //     })
+
+    googleTrends.autoComplete({
+        keyword: 'PHP',
+        // startTime: moment().subtract('5',"years").toDate(),
+        category : 958
+    })
+        .then(results =>  {
+        res.send(results);
+        })
+        .catch( err => {
+        res.send(err);
+        })
 }

@@ -36,6 +36,10 @@ export class UserChartsComponent implements OnInit {
   statusList: any;
   selectedStatus:any;
 
+  trendsControl = new FormControl('trendsControl');
+  trendsList: any =  [{ mid: '', title: '', type: ''}];
+  selectedTrends: any;
+
   baseUrl = environment.BASE_URL
   userType = localStorage.getItem("isAdmin") == "true" ? "admin" : "user";
   dashUrl = localStorage.getItem("isAdmin") == "true" ? "campusHiresDashboard" : "userDashboard";
@@ -733,6 +737,105 @@ export class UserChartsComponent implements OnInit {
     this.userChart.data.datasets[0].data = this.userChartData;
     this.userChart.data.labels = this.userChartLabels;
     this.userChart.update();
+  }
+
+  getTrends(keywords: any){
+
+    const headers = new HttpHeaders()
+    .set('Content-Type', 'application/json');
+
+    this.http.post(`${this.baseUrl}/${this.userType}/trends`, JSON.stringify({id:localStorage.getItem("user_id"), access_token:localStorage.getItem("access_token"), keyword: keywords  }), {
+      headers: headers
+    }).subscribe((result: any) => {
+
+      let va = this.selectedTrends ? this.selectedTrends.map( (a:any) => { return { mid: '', title: a, type: ''} } ) : []
+      
+      this.trendsList = [...va , ...result.default.topics]
+      console.log(this.trendsList);      
+
+    })
+
+  }
+
+  getTrendsData(){
+    console.log("here");
+    
+    const headers = new HttpHeaders()
+    .set('Content-Type', 'application/json');
+
+    this.http.post(`${this.baseUrl}/${this.userType}/trendsData`, JSON.stringify({id:localStorage.getItem("user_id"), access_token:localStorage.getItem("access_token"), keyword: this.selectedTrends  }), {
+      headers: headers
+    }).subscribe((result: any) => {
+      console.log(result);
+      
+    })
+
+  }
+
+  
+  linearRegression() {
+    // linearRegression(inputArray: any, xLabel: any, yLabel: any) {
+
+    const xLabel = "squareMeters";
+    const yLabel = "priceInDollars";
+
+    const inputArray = [
+      {
+        squareMeters: 200,
+        priceInDollars: 190000
+      },
+      {
+        squareMeters: 100,
+        priceInDollars: 90000
+      },
+      {
+        squareMeters: 115,
+        priceInDollars: 120000
+      },
+      {
+        squareMeters: 150,
+        priceInDollars: 140000
+      },
+      {
+        squareMeters: 140,
+        priceInDollars: 125000
+      }
+    ];
+
+    const x = inputArray.map((element: any) => element[xLabel]);
+    const y = inputArray.map((element: any) => element[yLabel]);
+  
+    const sumX = x.reduce((prev:any, curr:any) => prev + curr, 0);
+    const avgX = sumX / x.length;
+  
+    const xDifferencesToAverage = x.map((value:any) => avgX - value);
+    const xDifferencesToAverageSquared = xDifferencesToAverage.map(
+      (value:any) => value ** 2
+    );
+  
+    const SSxx = xDifferencesToAverageSquared.reduce(
+      (prev:any, curr:any) => prev + curr,
+        0
+    );
+
+    const sumY = y.reduce((prev:any, curr:any) => prev + curr, 0);
+    const avgY = sumY / y.length;
+    const yDifferencesToAverage = y.map((value:any) => avgY - value);
+    const xAndYDifferencesMultiplied = xDifferencesToAverage.map(
+      (curr:any, index:any) => curr * yDifferencesToAverage[index]
+    );
+    const SSxy = xAndYDifferencesMultiplied.reduce(
+      (pre:any, curr:any) => pre + curr,
+      0
+    );
+    const slope = SSxy / SSxx;
+    const intercept = avgY - slope * avgX;
+
+    console.log(intercept + slope * 100);
+    
+
+    return intercept + slope * 100;
+
   }
 
 }

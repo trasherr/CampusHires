@@ -289,7 +289,7 @@ export class PipelineComponent implements OnInit {
         event.previousIndex,
         event.currentIndex,
       );
-      switch(Number(event.container.id.replace("cdk-drop-list-",""))){
+      switch(Number(event.container.id.replace("cdk-drop-list-",""))%6){
         case 0:
           this.updatedStatus(event,"APPLIED");
           break;
