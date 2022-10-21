@@ -19,95 +19,20 @@
 
             </div>
           </div>
-          <div class=" row">
-            <div class=" col-sm-6 text-left">
-              <h5 class=" card-category">Candidate Uploaded in Recent Positions</h5>
-              <h2 class=" card-title">Positions</h2>
-            </div>
-            <div class=" col-sm-6">
-              <div
-                class=" btn-group btn-group-toggle float-right"
-                data-toggle="buttons" style="
-                align-items: flex-start;
-            ">
-                <mat-form-field appearance="fill">
-                  <mat-label>Status</mat-label>
-                  <mat-select [formControl]="statusControl" [(ngModel)]="selectedStatus" multiple  (selectionChange)="changeStatusCharts()">
-                    <mat-option *ngFor="let item of statusList" [value]="item">{{item}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-                &ensp;
-                <mat-form-field appearance="fill">
-                  <mat-label>Positions</mat-label>
-                  <mat-select [formControl]="positionControl" multiple  (selectionChange)="fetchCharts()" >
-                    <mat-option *ngFor="let item of allPositions" [value]="item.id">{{item.name}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-simple"
-                      [ngClass]="{ active: duration == 1 }" >
-                      <input type="radio" value="1" id="gender-male" (change)="processChart()"
-                    [(ngModel)]="duration" required checked />
-                      <span class="d-sm-block d-md-block d-lg-block d-xl-block">
-                        Days
-                      </span>
-                    </label>
-                    <label class="btn btn-simple"
-                      [ngClass]="{ active: duration == 12 }" (click)="duration = 12">
-                      <input type="radio" value="12" id="gender-female" (change)="processChart()"
-                    [(ngModel)]="duration" required />
-                      <span class="d-sm-block d-md-block d-lg-block d-xl-block">
-                        Months
-                      </span>
-                    </label>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
         </div>
-        <div class="legends d-flex pl-10 pr-10">
-          <div class="legend">
-            <div class="color" style="background-color: #dd1995"></div>
-            <div class="color-name">Applied</div>
-          </div>
-          <div class="legend">
-            <div class="color" style="background-color: #FFA500;"></div>
-            <div class="color-name">Feedback</div>
-          </div>
-          <div class="legend">
-            <div class="color" style="background-color: #8A2BE2;"></div>
-            <div class="color-name">Interview</div>
-          </div>
-          <div class="legend">
-            <div class="color" style="background-color: #0000CD;"></div>
-            <div class="color-name">Offer</div>
-          </div>
-          <div class="legend">
-            <div class="color" style="background-color: #ec250d;"></div>
-            <div class="color-name">Disqualilfied</div>
-          </div>
-          <div class="legend">
-            <div class="color" style="background-color: #00e900d9;"></div>
-            <div class="color-name">Hired</div>
-          </div>
-        </div>
+      
         <div class=" card-body">
           <div class=" chart-area"><canvas id="chartBig1"> </canvas></div>
         </div>
       </div>
     </div>
   </div>
-  <div class=" row">
+  <!-- <div class=" row">
     <div class=" col-lg-6">
       <div class=" card card-chart">
         <div class=" card-header">
           <h5 class=" card-category">Members(Candidates by each member)</h5>
           <h3 class=" card-title">
-            <!-- <i class=" tim-icons icon-delivery-fast text-info" *ngIf="position"> </i> {{ position?.candidates.length }} -->
           </h3>
         </div>
         <div class=" card-body">
@@ -128,4 +53,4 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
