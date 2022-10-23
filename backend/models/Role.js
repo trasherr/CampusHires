@@ -27,15 +27,15 @@ await Role.sync();
 const defaultRoles = [ "MEMBER","EXTERNAL RECRUITER","ADMIN","HIRING MANAGER", "LITEHIRES VENDOR" ]
 
 //create Roles
-let i = 1
+
 defaultRoles.forEach(async element =>  {
+    console.log(element);
     try{
-        await Role.create({id:i, name:element,slug:slugify(element)});
+        await Role.create({id: defaultRoles.indexOf(element)+1, name:element,slug:slugify(element)});
     }
     catch(er){
         
     }
-    i++;
 });
 
 

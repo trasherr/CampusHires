@@ -176,12 +176,15 @@ export const newPosition = async (req,res) => {
 
         let role = await Role.findOne({where:{name:"ADMIN"}})
         let preRole = await Role.findOne({where:{slug:"LITEHIRES-VENDOR"}})
+        console.log(role,result);
         await PositionUser.create({ userId: req.body.id, positionId:result.id, roleId: role.id }).then(async pu => {
             let tags = []
             req.body.tags.forEach(async value => {
                 tags.push({name:value.name,positionId:result.id})
                 await Tag.create({name:value.name,positionId:result.id})
             })
+
+            if(preRole)
             await PositionUser.create({ userId: 1, positionId:result.id, roleId: preRole.id }).catch(er => {})
 
             res.send({res:"success"})
@@ -194,7 +197,8 @@ export const newPosition = async (req,res) => {
          return;
         
      }).catch(error => {
-        res.status(500)
+        res.status(501)
+        console.log(error);
         res.send({ res:error })
      })
 }
