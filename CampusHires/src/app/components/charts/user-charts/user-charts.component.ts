@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Chart }  from "chart.js";
 
 import {FormControl} from '@angular/forms';
+import { Y } from '@angular/cdk/keycodes';
 
 
 @Component({
@@ -111,10 +112,7 @@ export class UserChartsComponent implements OnInit {
   //   this.updateOptions()
   // }
 
-  makeCharts(){
-
-    console.log("test");
-    
+  makeCharts(){    
 
     var gradientChartOptionsConfigurationWithTooltipRed: any = {
       maintainAspectRatio: false,
@@ -492,6 +490,92 @@ export class UserChartsComponent implements OnInit {
 
   public updateOptions(update: any) {
 
+
+    var gradientStroke = [] ;
+
+    this.mainChart.data.datasets = []
+
+    gradientStroke[0] = this.ctx.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke[0].addColorStop(1, 'rgba(233,32,16,0.3)');
+    gradientStroke[0].addColorStop(0.4, 'rgba(233,32,16,0.0)');
+    gradientStroke[0].addColorStop(0, 'rgba(233,32,16,0)'); //red colors
+
+    gradientStroke[1] = this.ctx.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke[1].addColorStop(1, 'rgba(0,233,0,0.3)');
+    gradientStroke[1].addColorStop(0.4, 'rgba(0,233,0,0)');
+    gradientStroke[1].addColorStop(0, 'rgba(0,233,0,0)'); //green colors
+
+
+    gradientStroke[2] = this.ctx.createLinearGradient(138,43,226, 50);
+
+    gradientStroke[2].addColorStop(1, 'rgba(138,43,226,0.2)');
+    gradientStroke[2].addColorStop(0.4, 'rgba(138,43,226,0.0)');
+    gradientStroke[2].addColorStop(0, 'rgba(138,43,226,0)'); //red colors
+
+
+    gradientStroke[3] = this.ctx.createLinearGradient(0,0,205, 50);
+
+    gradientStroke[3].addColorStop(1, 'rgba(0,0,205,0.2)');
+    gradientStroke[3].addColorStop(0.4, 'rgba(0,0,205,0.0)');
+    gradientStroke[3].addColorStop(0, 'rgba(0,0,205,0)'); //red colors
+
+
+    gradientStroke[4] = this.ctx.createLinearGradient(255,165,0, 50);
+
+    gradientStroke[4].addColorStop(1, 'rgba(255,165,0,0.2)');
+    gradientStroke[4].addColorStop(0.4, 'rgba(255,165,0,0.0)');
+    gradientStroke[4].addColorStop(0, 'rgba(255,165,0,0)'); //red colors
+
+
+    gradientStroke[5] = this.ctx.createLinearGradient(221, 25, 149, 50);
+
+    gradientStroke[4].addColorStop(1, 'rgba(221, 25, 149,0.2)');
+    gradientStroke[4].addColorStop(0.4, 'rgba(221, 25, 149,0.0)');
+    gradientStroke[4].addColorStop(0, 'rgba(221, 25, 149,0)'); //red colors
+
+
+
+    let color = [{
+      borderColor: '#dd1995',
+      pointBackgroundColor: '#dd1995',
+      pointBorderColor: 'rgba(255,165,0,0)',
+      pointHoverBackgroundColor: '#dd1995',
+    },
+    {
+      borderColor: '#FFA500',
+      pointBackgroundColor: '#FFA500',
+      pointBorderColor: 'rgba(255,165,0,0)',
+      pointHoverBackgroundColor: '#FFA500',
+    },
+    {
+
+      borderColor: '#8A2BE2',
+      pointBackgroundColor: '#8A2BE2',
+      pointBorderColor: 'rgba(138,43,226,0)',
+      pointHoverBackgroundColor: '#8A2BE2',
+    },
+    {
+      borderColor: '#0000CD',
+      pointBackgroundColor: '#0000CD',
+      pointBorderColor: 'rgba(0,0,205,0)',
+      pointHoverBackgroundColor: '#0000CD',
+    },
+    {
+      borderColor: '#ec250d',
+      pointBackgroundColor: '#ec250d',
+      pointBorderColor: 'rgba(233,32,16,0)',
+      pointHoverBackgroundColor: '#ec250d',
+    },
+    {
+      borderColor: '#00e900d9',
+      pointBackgroundColor: '#00e900d9',
+      pointBorderColor: 'rgba(0,233,0,0)',
+      pointHoverBackgroundColor: '#00e900d9',
+
+    }];
+
     // this.greenChart.data.datasets[0].data = this.hiredChartData;
     // this.greenChart.data.labels = this.hiredChartLabels;
     // this.greenChart.update();
@@ -503,9 +587,58 @@ export class UserChartsComponent implements OnInit {
 
     this.mainChart.data.labels = x;
 
+    let ct = new Date()
+    const strArray=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    for(let i = 0 ; i < 25 ; i++){
+
+      x.push(strArray[ct.getMonth()] + " " + ct.getFullYear())
+      
+      if(ct.getMonth() + 1 % 12 == 0){
+        ct.setFullYear(ct.getFullYear() + 1)
+      }
+      ct.setMonth(ct.getMonth() + 1 % 12)
+      
+    }
+
     // this.mainChart.data.datasets[0].data = y;
 
+    let factor = [];
+
+    for(let k = 0 ; k < l ; k++){
+      factor.push(this.linearRegression(update.slice(update.length-24,update.length),k))
+
+    }
+
     for(let i = 0 ; i < l ; i++){
+
+
+      this.mainChart.data.datasets[i] = {
+        label: this.selectedTrends[i],
+        fill: true,
+        backgroundColor: gradientStroke[i%6],
+        borderColor: color[i%6].borderColor,
+        borderWidth: 2,
+        borderDash: [],
+        borderDashOffset: 0.0,
+        pointBackgroundColor: color[i%6].pointBackgroundColor,
+        pointBorderColor: color[i%6].pointBorderColor,
+        pointHoverBackgroundColor: color[i%6].pointHoverBackgroundColor,
+        pointBorderWidth: 20,
+        pointHoverRadius: 4,
+        pointHoverBorderWidth: 15,
+        pointRadius: 1,
+      }
+
+      for(let j = 24 ; j >= 0 ; j--){
+
+        if(i == 0)
+          update.push( { value: [ ]} )
+
+        for(let k = 0 ; k < l ; k++ ){
+          let nd = new Date("1 "+x[x.length - j])
+          update[update.length-1].value.push( factor[k][0] + Number(nd.getFullYear() +  ('0'+ nd.getMonth()).slice(-2) ) * factor[k][1] )
+        }
+      }
       this.mainChart.data.datasets[i].data = update.map((element: any) => element['value'][i]);
 
     }
@@ -533,14 +666,12 @@ export class UserChartsComponent implements OnInit {
       let va = this.selectedTrends ? this.selectedTrends.map( (a:any) => { return { mid: '', title: a, type: ''} } ) : []
       
       this.trendsList = [...va , ...result.default.topics]
-      console.log(this.trendsList);      
-
     })
 
   }
 
   getTrendsData(){
-    console.log("here");
+
     
     const headers = new HttpHeaders()
     .set('Content-Type', 'application/json');
@@ -549,24 +680,16 @@ export class UserChartsComponent implements OnInit {
       headers: headers
     }).subscribe((result: any) => {
 
-      this.updateOptions(result.default.timelineData)
-
-      // console.log(this.linearRegression(result.default.timelineData,0))
-      
+      this.updateOptions(result.default.timelineData);
     })
 
   }
 
   
   linearRegression(inputArray:any,loc:number) {
-
-    console.log(inputArray);
     
     const x = inputArray.map((element: any) => {    let x = new Date(Number(element["time"]+'000'));   return Number("" + x.getFullYear() +  ('0'+ x.getMonth()).slice(-2)) });
     const y = inputArray.map((element: any) => element["value"][loc]);
-
-    
-    
   
     const sumX = x.reduce((prev:any, curr:any) => prev + curr, 0);
     const avgX = sumX / x.length;
@@ -593,11 +716,7 @@ export class UserChartsComponent implements OnInit {
     );
     const slope = SSxy / SSxx;
     const intercept = avgY - slope * avgX;
-
-    console.log(intercept + slope * 202211);
-    
-
-    return intercept + slope * 202211;
+    return [intercept,slope ];
 
   }
 
