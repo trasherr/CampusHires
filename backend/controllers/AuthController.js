@@ -25,7 +25,7 @@ export const login = async (req,res) => {
         { where: 
             { 
                 email: req.body.email , 
-                password: crypto.createHash('sha256').update(`campusHires-${req.body.password}`).digest('hex')
+                password: crypto.createHash('sha256').update(`litehires-${req.body.password}`).digest('hex')
             } 
         }).catch(function(error){
             res.send(error);
